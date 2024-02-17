@@ -3,16 +3,18 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './resource/login/login.component';
+import { PrimengModule } from './primeng/primeng/primeng.module';
+import { LoginComponent } from './resource/layout/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-      LoginComponent
+    LoginComponent
    ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PrimengModule
   ],
   providers: [
     provideClientHydration()
