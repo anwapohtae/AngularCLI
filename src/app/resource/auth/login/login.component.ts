@@ -3,12 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { jwtDecode } from 'jwt-decode';
+import { log } from 'console';
+import { AuthService } from '../../../services/auth/auth.service';
+import { User } from '../../../services/modules/user';
+import { decode } from 'punycode';
 
 @Component({
   selector: 'app-root',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
   title = 'Angular';
@@ -16,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private _activatedRoute: ActivatedRoute,
-    public messageService: MessageService
+    private messageService: MessageService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit {
       google.accounts.id.initialize({
         client_id:
           '536151736909-7mm0j9iv39g6ig7pmvl8hi88sad0g2u5.apps.googleusercontent.com',
-        callback: (rest: any) => this.handleLogin(rest),
+        callback: (rest: any) => this.loginUser(rest),
       });
 
       // Render Google Sign-In button
@@ -52,16 +56,34 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-  handleLogin(response: any) {
+
+  loginUser(response: any) {
     if (response) {
       // Decode the token
       const decodeToken = jwtDecode(response.credential);
 
       // Store in session
-      sessionStorage.setItem('token', JSON.stringify(decodeToken));
+      localStorage.setItem('token', JSON.stringify(decodeToken));
 
-      // Navigate to the home page
-      // this.router.navigate(['/dashboard']);
+      const getData = localStorage.getItem('token');
+
+      if (getData !== null) {
+        const tokenData = JSON.parse(getData);
+        const data = {
+          email: tokenData.email,
+          googlefirstsname: tokenData.given_name,
+          googlelastname: tokenData.family_name,
+          googleid: tokenData.sub,
+          profile: tokenData.picture,
+        };
+
+        this._authService.loginUser(data as User).subscribe((response: any) => {
+          console.log(response);
+          localStorage.setItem('token', JSON.stringify(response.token))
+        });
+      } else {
+        console.log('ไม่พบข้อมูลใน localStorage');
+      }
     }
   }
 }

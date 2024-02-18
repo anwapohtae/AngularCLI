@@ -2,11 +2,11 @@ export interface User {
   id?: number;
   firstname: string;
   lastname: string;
-  googlefirstname: string;
+  googlefirstsname: string;
   googlelastname: string;
   age: string;
   numberphone: string;
-  gid: string;
+  googleid: string;
   email: string;
   profile: string
   // Add more properties as needed

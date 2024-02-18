@@ -21,11 +21,11 @@ export class RegisterComponent implements OnInit {
   user: User = {
     firstname: '',
     lastname: '',
-    googlefirstname: '',
+    googlefirstsname: '',
     googlelastname: '',
     age: '',
     numberphone: '',
-    gid: '',
+    googleid: '',
     email: '',
     profile: '',
   };
