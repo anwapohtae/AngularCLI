@@ -1,0 +1,77 @@
+<section class="vh-100">
+  <p-toast></p-toast>
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img
+          src="../../assets/images/logo.png"
+          class="img-fluid"
+          alt="Sample image"
+        />
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 w-50">
+        <div class="card">
+          <div class="card-header">ฟอร์มลงทะเบียน</div>
+          <div class="card-body">
+            <form (submit)="register()">
+              <p-inputGroup class="mb-2">
+                <input
+                  type="text"
+                  class="form-control rounded me-2"
+                  placeholder="Firstname"
+                  name="Firstname"
+                  [(ngModel)]="user.firstname"
+                />
+                <input
+                  type="text"
+                  class="form-control rounded"
+                  placeholder="Lastname"
+                  name="Lastname"
+                  [(ngModel)]="user.lastname"
+                />
+              </p-inputGroup>
+
+              <p-inputGroup class="mb-2">
+                <input
+                  type="text"
+                  class="form-control rounded me-2"
+                  type="date"
+                  name="age"
+                  [(ngModel)]="user.age"
+                />
+                <input
+                  type="text"
+                  placeholder="999-999-9999"
+                  class="form-control rounded"
+                  name="numberphone"
+                  maxlength="10"
+                  [(ngModel)]="user.numberphone"
+                />
+              </p-inputGroup>
+
+              <p-inputGroup class="mb-2">
+                <input
+                  type="text"
+                  class="form-control rounded me-2"
+                  type="email"
+                  placeholder="Emailaddress"
+                  name="email"
+                  [(ngModel)]="user.email"
+                />
+              </p-inputGroup>
+
+              <div class="me-auto">
+                <button
+                  pButton
+                  class="p-button-primary rounded"
+                  type="submit"
+                  label="ลงทะเบียน"
+                ></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
