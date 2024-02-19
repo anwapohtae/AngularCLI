@@ -11,14 +11,17 @@ import { NavbarComponent } from './resource/layout/navbar/navbar.component';
 import { RegisterComponent } from './resource/auth/register/register.component';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './services/authGuard/auth.guard';
+import { HomeComponent } from './resource/home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent,
     RegisterComponent,
+    NavbarComponent,
+    HomeComponent
    ],
   imports: [
     BrowserAnimationsModule,
@@ -29,7 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule
   ],
   providers: [
-    MessageService
+    MessageService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

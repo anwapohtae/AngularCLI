@@ -8,6 +8,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 const PrimengComponent = [
@@ -18,7 +20,9 @@ const PrimengComponent = [
   InputGroupAddonModule,
   InputTextModule,
   InputMaskModule,
-  ToastModule
+  ToastModule,
+  TooltipModule,
+  OverlayPanelModule
 ]
 
 @NgModule({

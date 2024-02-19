@@ -3,11 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { jwtDecode } from 'jwt-decode';
-import { log } from 'console';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../services/modules/user';
-import { decode } from 'punycode';
-
+import { NgZone } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './login.component.html',
@@ -20,7 +18,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +30,16 @@ export class LoginComponent implements OnInit {
             severity: 'success',
             summary: 'Success',
             detail: 'Message Content',
+          });
+          this.router.navigate(['']);
+        }, 100); // 5000 milliseconds = 5 seconds
+      }
+      if (params['logoutedUser'] === 'success') {
+        setTimeout(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'ออกจากระบบสำเร็จ',
           });
           this.router.navigate(['']);
         }, 100); // 5000 milliseconds = 5 seconds
@@ -63,9 +72,9 @@ export class LoginComponent implements OnInit {
       const decodeToken = jwtDecode(response.credential);
 
       // Store in session
-      localStorage.setItem('token', JSON.stringify(decodeToken));
+      localStorage.setItem('tokenuser', JSON.stringify(decodeToken));
 
-      const getData = localStorage.getItem('token');
+      const getData = localStorage.getItem('tokenuser');
 
       if (getData !== null) {
         const tokenData = JSON.parse(getData);
@@ -77,12 +86,24 @@ export class LoginComponent implements OnInit {
           profile: tokenData.picture,
         };
 
-        this._authService.loginUser(data as User).subscribe((response: any) => {
-          console.log(response);
-          localStorage.setItem('token', JSON.stringify(response.token))
-        });
-      } else {
-        console.log('ไม่พบข้อมูลใน localStorage');
+        localStorage.removeItem('tokenuser')
+
+        this._authService.loginUser(data as User).subscribe(
+          (res: any) => {
+            console.log(res.token);
+            localStorage.setItem('token', JSON.stringify(res.token));
+            this._ngZone.run(() => this.router.navigateByUrl('/home?loggedIn=success')); //เมื่อ navigate ไปที่ "" ให้แสเงข้อความนี้หน้า this.messageService.add({severity: 'success', summary: 'Success', detail: 'ลงทะเบียนสำเร็จ',});
+
+          },
+          (err) => {
+            this.router.navigate(['']);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: err.error.error,
+            });
+          }
+        );
       }
     }
   }

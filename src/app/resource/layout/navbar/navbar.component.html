@@ -1,17 +1,68 @@
-<p-toolbar styleClass="bg-gray-900 shadow-2" [style]="{ 'border-radius': '3rem', 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
-  <ng-template pTemplate="start">
-      <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" />
-  </ng-template>
-  <ng-template pTemplate="center">
-      <div class="flex flex-wrap align-items-center gap-3">
-          <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"><i class="pi pi-home text-2xl"></i></button>
-          <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"><i class="pi pi-user text-2xl"></i></button>
-          <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"><i class="pi pi-search text-2xl"></i></button>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">AngularLogo</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="d-flex justify-content-end w-100">
+        <!-- ใช้คลาส d-flex เพื่อกำหนดให้เป็น flex container และ justify-content-end เพื่อจัดให้อยู่ทางด้านขวา -->
+        <div class="d-flex">
+          <!-- ส่วนที่จะเคลื่อนไปด้านขวา -->
+          <span class="me-2 my-auto" style="text-transform: uppercase"
+            >{{ user.firstname }} {{ user.lastname }}</span
+          >
+          <button
+            pButton
+            [pTooltip]="profile"
+            class="p-button-raiset p-button-success rounded-circle p-0"
+            (click)="op.toggle($event)"
+          >
+            <img
+              [src]="user.profile"
+              class="rounded-circle m-0"
+              alt=""
+              width="40"
+              height="40"
+            />
+          </button>
+          <p-overlayPanel #op [appendTo]="'body'">
+            <!-- Content of the overlay panel goes here -->
+            <div>{{ user.email }}</div>
+        </p-overlayPanel>
+          <ng-template #profile>
+            <div style="font-size: 12px; color: rgb(255, 255, 255)">
+              บัญชี Google
+            </div>
+            <div
+              style="
+                text-transform: uppercase;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.623);
+              "
+            >
+              {{ user.firstname }} {{ user.lastname }}
+            </div>
+            <div
+              style="
+                text-transform: uppercase;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.623);
+              "
+            >
+              {{ user.email }}
+            </div>
+          </ng-template>
+        </div>
       </div>
-  </ng-template>
-  <ng-template pTemplate="end">
-      <div class="flex align-items-center gap-2">
-          <span class="font-bold text-bluegray-50">Amy Elsner</span>
-      </div>
-  </ng-template>
-</p-toolbar>
+    </div>
+  </div>
+</nav>
