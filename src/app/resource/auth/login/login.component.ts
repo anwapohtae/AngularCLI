@@ -86,21 +86,23 @@ export class LoginComponent implements OnInit {
           profile: tokenData.picture,
         };
 
-        localStorage.removeItem('tokenuser')
-
         this._authService.loginUser(data as User).subscribe(
           (res: any) => {
-            console.log(res.token);
-            localStorage.setItem('token', JSON.stringify(res.token));
-            this._ngZone.run(() => this.router.navigateByUrl('/home?loggedIn=success')); //เมื่อ navigate ไปที่ "" ให้แสเงข้อความนี้หน้า this.messageService.add({severity: 'success', summary: 'Success', detail: 'ลงทะเบียนสำเร็จ',});
+            localStorage.removeItem('tokenuser');
+            // console.log(res.token);
+            // localStorage.setItem('token', JSON.stringify(res.token));
 
+            this._ngZone.run(() =>
+            this.router.navigateByUrl('/home?loggedIn=success')
+            ); //เมื่อ navigate ไปที่ "" ให้แสเงข้อความนี้หน้า this.messageService.add({severity: 'success', summary: 'Success', detail: 'ลงทะเบียนสำเร็จ',});
+            localStorage.setItem('token', res.token);
           },
           (err) => {
             this.router.navigate(['']);
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: err.error.error,
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: err.error.error,
             });
           }
         );

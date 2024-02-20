@@ -27,14 +27,15 @@ export class AuthService {
   }
 
   loggedIn() {
-    return !!localStorage.getItem('token')
+
+    const token: any = localStorage.getItem('token')
+    return token
+
   }
 
   logoutedUser() {
     localStorage.removeItem('token')
-
     this._ngZone.run(() => this._router.navigateByUrl('/login?logoutedUser=success')); //เมื่อ navigate ไปที่ "" ให้แสเงข้อความนี้หน้า this.messageService.add({severity: 'success', summary: 'Success', detail: 'ลงทะเบียนสำเร็จ',});
-
 
   }
 

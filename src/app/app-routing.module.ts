@@ -4,12 +4,14 @@ import { LoginComponent } from './resource/auth/login/login.component';
 import { RegisterComponent } from './resource/auth/register/register.component';
 import { HomeComponent } from './resource/home/home.component';
 import { AuthGuard } from './services/authGuard/auth.guard';
+import { EdituserComponent } from './resource/user/edituser/edituser.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // ให้เริ่มต้นที่หน้า "/login"
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'editUser', component: EdituserComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login' } // หน้าอื่นๆที่ไม่ถูกต้องจะเปลี่ยนเส้นทางไปยังหน้า login
 ];
 

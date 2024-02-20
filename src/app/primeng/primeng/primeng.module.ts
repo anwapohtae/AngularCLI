@@ -10,7 +10,8 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
 
 const PrimengComponent = [
   CommonModule,
@@ -22,7 +23,9 @@ const PrimengComponent = [
   InputMaskModule,
   ToastModule,
   TooltipModule,
-  OverlayPanelModule
+  OverlayPanelModule,
+  DropdownModule,
+  DialogModule
 ]
 
 @NgModule({

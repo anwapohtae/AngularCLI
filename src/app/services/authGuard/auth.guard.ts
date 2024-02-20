@@ -7,10 +7,10 @@ import { AuthService } from '../auth/auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService , private router: Router) {}
+  constructor(private _authService: AuthService , private router: Router) {}
 
   canActivate(): boolean {
-    if (this.authService.loggedIn()) {
+    if (this._authService.loggedIn()) {
       return true; // อนุญาตให้เข้าถึงหน้า
     } else {
       this.router.navigate(['/login']); // ไม่อนุญาตให้เข้าถึงหน้าและเปลี่ยนเส้นทางไปยังหน้า login

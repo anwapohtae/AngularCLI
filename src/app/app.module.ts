@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { withFetch } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,7 @@ import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './services/authGuard/auth.guard';
 import { HomeComponent } from './resource/home/home.component';
+import { EdituserComponent } from './resource/user/edituser/edituser.component';
 
 
 @NgModule({
@@ -21,7 +24,8 @@ import { HomeComponent } from './resource/home/home.component';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    EdituserComponent
    ],
   imports: [
     BrowserAnimationsModule,
@@ -33,7 +37,7 @@ import { HomeComponent } from './resource/home/home.component';
   ],
   providers: [
     MessageService,
-    AuthGuard
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

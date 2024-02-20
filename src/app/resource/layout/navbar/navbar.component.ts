@@ -19,7 +19,10 @@ export class NavbarComponent implements OnInit {
     profile: null
   }
 
-
+  positionTop = '20px';
+  border = '0px'
+  borderWith = '0px'
+  overlayArrowLeft = '0px'
   constructor(
     private _authService: AuthService,
     private userService: UserService
@@ -37,11 +40,11 @@ export class NavbarComponent implements OnInit {
           lastname: decodeToken.lastname,
           profile: decodeToken.picture,
         };
-        console.log('User data:', this.user.id); // แสดงข้อมูลผู้ใช้ที่ถูกดึงมาจาก token ในคอนโซล
+        // console.log('User data:', this.user.id); // แสดงข้อมูลผู้ใช้ที่ถูกดึงมาจาก token ในคอนโซล
 
         this.userService.getUserById(this.user.id).subscribe(
           (res) => {
-            console.log('User data:', res);
+            // console.log('User data:', res);
             this.user = res;
           }
         )
