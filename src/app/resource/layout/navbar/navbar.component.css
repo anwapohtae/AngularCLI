@@ -1,0 +1,7 @@
+::ng-deep .panel1{
+  background-color: #ECEFF7;
+}
+
+;;ng-deep .tooltip {
+  width: 100em !important;
+}

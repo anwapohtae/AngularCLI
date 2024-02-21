@@ -49,9 +49,13 @@ export class NavbarComponent implements OnInit {
           }
         )
       } else {
-        // กรณีที่ไม่พบ token ใน localStorage
         console.error('Token not found in localStorage');
       }
+    }
+
+    visible: boolean = false;
+    showDialog() {
+      this.visible = true;
     }
 
   Logout() {

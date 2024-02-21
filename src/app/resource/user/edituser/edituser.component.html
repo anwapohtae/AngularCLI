@@ -10,6 +10,61 @@
     >
   </div>
   <div class="text-center">
-    <span style="color: #444746;">จัดการข้อมูล ความเป็นส่วนตัว และความปลอดภัยเพื่อให้บัญชีของคุณมีประสิทธิภาพมากขึ้น</span>
+    <span style="color: #444746"
+      >จัดการข้อมูล ความเป็นส่วนตัว
+      และความปลอดภัยเพื่อให้บัญชีของคุณมีประสิทธิภาพมากขึ้น</span
+    >
+  </div>
+  <div class="mx-5">
+    <div class="card mt-4">
+      <div class="card-header" style="font-size: 22px">ข้อมูลพื้นฐาน</div>
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-around my-2">
+          <div>รูปโปรไฟล์</div>
+          <div class="d-flex align-items-center">
+            <img
+              class="rounded-circle"
+              [src]="dataUser.profile"
+              width="70"
+              height="70"
+              alt="imageProfile"
+            />
+          </div>
+        </div>
+
+        <hr class="my-3" />
+
+        <div class="d-flex align-items-center justify-content-around my-2">
+          <div>ชื่อ</div>
+          <div class="d-flex align-items-center">
+            <div>{{ dataUser.firstname }} {{ dataUser.lastname }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mx-5">
+    <div class="card mt-4">
+      <div class="card-header" style="font-size: 22px">ข้อมูลพื้นฐาน</div>
+      <div class="card-body">
+        <div
+          class="d-flex align-items-center justify-content-between my-2 mx-5"
+        >
+          <div>อีเมลล์</div>
+          <div class="d-flex align-items-center">
+            {{ dataUser.email }}
+          </div>
+        </div>
+
+        <hr class="my-3" />
+
+        <div class="d-flex align-items-center justify-content-between my-2 mx-5">
+          <div>ชื่อ</div>
+          <div class="d-flex align-items-center">
+            <div>{{ dataUser.firstname }} {{ dataUser.lastname }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

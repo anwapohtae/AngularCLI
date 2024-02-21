@@ -12,6 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
+import { MenuModule } from 'primeng/menu';
 
 const PrimengComponent = [
   CommonModule,
@@ -25,7 +26,8 @@ const PrimengComponent = [
   TooltipModule,
   OverlayPanelModule,
   DropdownModule,
-  DialogModule
+  DialogModule,
+  MenuModule
 ]
 
 @NgModule({

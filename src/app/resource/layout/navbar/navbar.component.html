@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container">
+  <div class="container-fluid mx-5">
     <a class="navbar-brand" routerLink="/home">AngularLogo</a>
     <button
       class="navbar-toggler"
@@ -15,17 +15,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="d-flex justify-content-end w-100">
         <!-- ใช้คลาส d-flex เพื่อกำหนดให้เป็น flex container และ justify-content-end เพื่อจัดให้อยู่ทางด้านขวา -->
-        <div class="d-flex">
-          <!-- ส่วนที่จะเคลื่อนไปด้านขวา -->
-          <span class="me-2 my-auto" style="text-transform: uppercase"
-            >{{ user.firstname }} {{ user.lastname }}</span
-          >
+        <!-- ส่วนที่จะเคลื่อนไปด้านขวา -->
+        <span class="me-2 my-auto" style="text-transform: uppercase"
+          >{{ user.firstname }} {{ user.lastname }}</span
+        >
+        <div style="margin-top: -10px">
           <button
             pButton
+            mat-button
             [pTooltip]="profile"
-            class="p-button-raised p-button-success rounded-circle p-0"
-            type="button"
             (click)="op1.toggle($event)"
+            tooltipStyleClass="tooltip"
+            class="p-button-raised p-button-success rounded-circle p-0 mt-3"
+            type="button"
           >
             <img
               [src]="user.profile"
@@ -35,56 +37,65 @@
               height="40"
             />
           </button>
-          <p-overlayPanel
-            #op1
-            [style]="{
-              'background-color': '#ECEFF7',
-              width: '20%'
-            }"
-          >
-            <div class="text-center" style="font-size: 12px; font-weight: bold">
-              {{ user.email }}
-            </div>
-            <div class="text-center my-2">
-              <img [src]="user.profile" class="rounded-circle" alt="" />
-            </div>
-            <div class="text-center my-2">
-              <button pButton class=" rounded p-button-outlined p-button-secondary" routerLink="/editUser">
-                <span style="color: #0B57D0;">จัดการบัญชีผู้ใช้</span>
-              </button>
-            </div>
-            <div class="text-center">
-              <button pButton class="p-button-outlined p-button-secondary rounded" (click)="Logout()">
-                <i class="pi pi-power-off me-2" style="font-size: 1rem"></i>
-                <span>ออกจากระบบ</span>
-              </button>
-            </div>
-          </p-overlayPanel>
-
-          <ng-template #profile>
-            <div style="font-size: 12px; color: rgb(255, 255, 255)">
-              บัญชี Google
-            </div>
-            <div
-              style="
-                text-transform: uppercase;
-                font-size: 12px;
-                color: rgba(255, 255, 255, 0.623);
-              "
-            >
-              {{ user.firstname }} {{ user.lastname }}
-            </div>
-            <div
-              style="
-                text-transform: uppercase;
-                font-size: 12px;
-                color: rgba(255, 255, 255, 0.623);
-              "
-            >
-              {{ user.email }}
-            </div>
-          </ng-template>
         </div>
+
+        <p-overlayPanel
+              #op1
+              styleClass="panel1 col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 col-xxl-2"
+            >
+              <div
+                class="text-center"
+                style="font-size: 12px; font-weight: bold"
+              >
+                {{ user.email }}
+              </div>
+              <div class="text-center my-2">
+                <img [src]="user.profile" class="rounded-circle" alt="" />
+              </div>
+              <div class="text-center my-2">
+                <button
+                  pButton
+                  class="rounded p-button-outlined p-button-secondary"
+                  routerLink="/editUser"
+                >
+                  <span style="color: #0b57d0">จัดการบัญชีผู้ใช้</span>
+                </button>
+              </div>
+              <div class="text-center">
+                <button
+                  pButton
+                  class="p-button-outlined p-button-secondary rounded"
+                  (click)="Logout()"
+                >
+                  <i class="pi pi-power-off me-2" style="font-size: 1rem"></i>
+                  <span>ออกจากระบบ</span>
+                </button>
+              </div>
+            </p-overlayPanel>
+
+        <ng-template #profile class="me-1">
+          <div style="font-size: 12px; color: rgb(255, 255, 255);">
+            บัญชี Google
+          </div>
+          <div
+            style="
+              text-transform: uppercase;
+              font-size: 12px;
+              color: rgba(255, 255, 255, 0.623);
+            "
+          >
+            {{ user.firstname }} {{ user.lastname }}
+          </div>
+          <div
+            style="
+              text-transform: uppercase;
+              font-size: 12px;
+              color: rgba(255, 255, 255, 0.623);
+            "
+          >
+            {{ user.email }}
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
