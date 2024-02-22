@@ -1,5 +1,5 @@
 export interface User {
-  id?: number;
+  id?: string;
   firstname: string;
   lastname: string;
   googlefirstsname: string;
@@ -8,6 +8,11 @@ export interface User {
   numberphone: string;
   googleid: string;
   email: string;
-  profile: string
+  profile: string;
+  province: string;
+  amphure: string;
+  tambon: string;
+  zipcode: string;
+
   // Add more properties as needed
 }

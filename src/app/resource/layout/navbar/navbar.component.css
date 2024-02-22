@@ -2,6 +2,6 @@
   background-color: #ECEFF7;
 }
 
-;;ng-deep .tooltip {
+::ng-deep .tooltip {
   width: 100em !important;
 }

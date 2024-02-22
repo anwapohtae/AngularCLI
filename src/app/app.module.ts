@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideHttpClient } from '@angular/common/http';
 import { withFetch } from '@angular/common/http';
 import { PrimengModule } from './primeng/primeng.module';
@@ -18,6 +18,9 @@ import { AuthGuard } from './services/authGuard/auth.guard';
 import { HomeComponent } from './resource/home/home.component';
 import { EdituserComponent } from './resource/user/edituser/edituser.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { TokenInterceptorService } from './services/token-interceptor/token-interceptor.service';
+import { UserService } from './services/user/user.service';
+import { PersonalComponent } from './resource/user/personal/personal.component';
 
 
 @NgModule({
@@ -27,7 +30,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     RegisterComponent,
     NavbarComponent,
     HomeComponent,
-    EdituserComponent
+    EdituserComponent,
+    PersonalComponent
    ],
   imports: [
     BrowserAnimationsModule,
@@ -41,7 +45,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   providers: [
     MessageService,
     AuthGuard,
-    provideAnimationsAsync(),
+    UserService,
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

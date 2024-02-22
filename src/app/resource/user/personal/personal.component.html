@@ -80,8 +80,22 @@
           style="margin: 0 10rem"
         >
           <div>ที่อยู่บ้าน</div>
-          <div class="dataProvince" *ngIf="!dataUser.province && !dataUser.amphure && !dataUser.tambon && !dataUser.zipcode ">ไม่มีข้อมูล</div>
-          <button pButton class="p-button-text rounded-circle p-button-secondary p-3">
+          <div
+            class="dataProvince"
+            *ngIf="
+              !dataUser.province &&
+              !dataUser.amphure &&
+              !dataUser.tambon &&
+              !dataUser.zipcode
+            "
+          >
+            ไม่มีข้อมูล
+          </div>
+          <button
+            pButton
+            class="p-button-text rounded-circle p-button-secondary p-3"
+            (click)="showEditAddress()"
+          >
             <i class="pi pi-arrow-right"></i>
           </button>
         </div>
@@ -101,3 +115,34 @@
     </div>
   </div>
 </div>
+<p-dialog
+  header="ที่อยู่บ้าน"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '80rem', height: '80rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+>
+  <div class="card">
+    <div class="card-header p-3">ฟอร์มแก้ไขที่อยู่บ้าน</div>
+    <div class="card-body">
+      <form action="">
+        <div class="form-group">
+          <label for="province">จังหวัด</label>
+          <input
+            type="text"
+            placeholder="Choose a city"
+            aria-label="City"
+            matInput
+            [formControl]="cityControl"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let city of filteredCities" [value]="city">
+              {{ city }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>

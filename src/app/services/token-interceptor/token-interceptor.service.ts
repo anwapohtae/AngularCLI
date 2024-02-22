@@ -1,25 +1,53 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { Injector } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
-
   constructor(
-    private injector: Injectable,
-    private authService: AuthService
-    ) { }
+    private authService: AuthService,
+    private injector: Injector,
+    ) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // ดำเนินการกับ request ที่ต้องการด้วยการเพิ่ม token หรือ headers อื่น ๆ ตามที่คุณต้องการ
-    let tokenizedReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.authService.getToken()}` // แทน your_token_here ด้วย token ที่คุณต้องการใช้
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const authReq = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        return next.handle(authReq);
       }
-    });
-    return next.handle(tokenizedReq);
-  }
+      return next.handle(req);
+    }
+  // intercept(
+  //   req: HttpRequest<any>,
+  //   next: HttpHandler
+  // ): Observable<HttpEvent<any>> {
+  //   const authToken = this.authService.getToken();
+
+  //   const authReq = req.clone({
+  //     setHeaders: {
+  //       Authorization: `Bearer ${authToken}`,
+  //     },
+  //   });
+
+  //   return next.handle(authReq).pipe(
+  //     tap(
+  //       event => {
+  //         if (event instanceof HttpResponse) {
+  //           console.log('Request:', authReq);
+  //           console.log('Response:', event);
+  //         }
+  //       },
+  //       error => {
+  //         console.error('Error:', error);
+  //       }
+  //     )
+  //   );
+  // }
 }

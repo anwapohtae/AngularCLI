@@ -1,6 +1,6 @@
+import { User } from './../../../modules/user';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
-import { User } from './../../../services/modules/user';
 import { Component, OnInit } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -18,17 +18,18 @@ export class RegisterComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-  user: User = {
-    firstname: '',
-    lastname: '',
-    googlefirstsname: '',
-    googlelastname: '',
-    age: '',
-    numberphone: '',
-    googleid: '',
-    email: '',
-    profile: '',
-  };
+  // user: User = {
+  //   firstname: '',
+  //   lastname: '',
+  //   googlefirstsname: '',
+  //   googlelastname: '',
+  //   age: '',
+  //   numberphone: '',
+  //   googleid: '',
+  //   email: '',
+  //   profile: '',
+  // };
+  user: any ={}
 
   ngOnInit() {}
 

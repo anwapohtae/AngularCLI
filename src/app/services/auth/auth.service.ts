@@ -1,7 +1,7 @@
+import { User } from './../../modules/user';
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../modules/user';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class AuthService {
     private _ngZone: NgZone
     ) {}
 
-  private apiUrl = 'http://localhost:8080/api/user/';
+  private apiUrl = 'http://localhost:8080/api/auth/';
 
   // ส่ง request เพื่อสร้างผู้ใช้ใหม่
   registerUser(user: User): Observable<any> {
@@ -27,7 +27,6 @@ export class AuthService {
   }
 
   loggedIn() {
-
     const token: any = localStorage.getItem('token')
     return token
 

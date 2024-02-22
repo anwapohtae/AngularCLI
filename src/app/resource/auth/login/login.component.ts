@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../../services/auth/auth.service';
-import { User } from '../../../services/modules/user';
+import { User } from './../../../modules/user';
 import { NgZone } from '@angular/core';
 @Component({
   selector: 'app-root',

@@ -1,3 +1,35 @@
 <app-navbar></app-navbar>
 <p-toast [showTransformOptions]="'translateY(10%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(10%)'"></p-toast>
 
+<div *ngFor="let book of dataBook">
+  <div>{{ book.name }}</div>
+  <div>{{ book.author }}</div>
+  <div>{{ book.publication }}</div>
+</div>
+<!-- 
+<p-table [value]="products" dataKey="ID" [tableStyle]="{'min-width': '50rem', 'font-size': '14px'}">
+  <ng-template pTemplate="header">
+    <tr class="text-center">
+      <th pSortableColumn="ID" style="width:17%">ID <p-sortIcon field="ID"></p-sortIcon></th>
+      <th pSortableColumn="name" style="width:17%">Name <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="author" style="width:17%">Author <p-sortIcon field="author"></p-sortIcon></th>
+      <th pSortableColumn="publication" style="width:17%">Publication <p-sortIcon field="publication"></p-sortIcon></th>
+      <th style="width:40%">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product let-i="rowIndex">
+    <tr>
+      <td class="text-center">{{ product.ID }}</td>
+      <td class="text-center">{{ product.name }}</td>
+      <td class="text-center">{{ product.author }}</td>
+      <td class="text-center">{{ product.publication }}</td>
+      <td class="text-center">
+        <button pButton pRipple type="button" icon="pi pi-pencil" (click)="editItem(product.ID)"
+          class="p-button-rounded p-button-text rounded-circle p-button-warning"></button>
+        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteProduct(product.ID, $event)"
+          class="p-button-rounded p-button-text rounded-circle p-button-danger"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table> -->
+

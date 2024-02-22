@@ -1,9 +1,7 @@
-import { User } from './../../../services/modules/user';
+import { User } from './../../../modules/user';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../services/auth/auth.service';
 import { UserService } from '../../../services/user/user.service';
 import { jwtDecode } from 'jwt-decode';
-import { get } from 'http';
 
 @Component({
   selector: 'app-edituser',
@@ -14,7 +12,7 @@ export class EdituserComponent implements OnInit {
   getId: any = null;
 
   dataUser!: User;
-  
+
   constructor(
     private _userService: UserService
   ) {}
@@ -24,11 +22,9 @@ export class EdituserComponent implements OnInit {
 
     const decodeToken: any = jwtDecode(getToken);
     this.getId = decodeToken.userId
-    console.log(this.getId);
 
     this._userService.getUserById(this.getId).subscribe(
       (res) => {
-        console.log("dataUser", res);
         this.dataUser = res as User;
       }
     )
