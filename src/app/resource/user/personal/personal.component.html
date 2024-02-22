@@ -128,14 +128,14 @@
       <form action="">
         <div class="form-group">
           <label for="province">จังหวัด</label>
-          <input
+          <!-- <input
             type="text"
             placeholder="Choose a city"
             aria-label="City"
             matInput
             [formControl]="cityControl"
             [matAutocomplete]="auto"
-          />
+          /> -->
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let city of filteredCities" [value]="city">
               {{ city }}
