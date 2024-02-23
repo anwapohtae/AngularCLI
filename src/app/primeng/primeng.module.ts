@@ -14,6 +14,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { SplitterModule } from 'primeng/splitter';
+import { CardModule } from 'primeng/card';
+
 
 const PrimengComponent = [
   CommonModule,
@@ -29,7 +32,9 @@ const PrimengComponent = [
   DropdownModule,
   DialogModule,
   MenuModule,
-  AutoCompleteModule
+  AutoCompleteModule,
+  SplitterModule,
+  CardModule
 ]
 
 @NgModule({

@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar>
 
 <div class="container">
   <div class="text-center mt-5 my-2">
@@ -126,23 +126,197 @@
     <div class="card-header p-3">ฟอร์มแก้ไขที่อยู่บ้าน</div>
     <div class="card-body">
       <form action="">
-        <div class="form-group">
-          <label for="province">จังหวัด</label>
-          <!-- <input
-            type="text"
-            placeholder="Choose a city"
-            aria-label="City"
-            matInput
-            [formControl]="cityControl"
-            [matAutocomplete]="auto"
-          /> -->
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let city of filteredCities" [value]="city">
-              {{ city }}
-            </mat-option>
-          </mat-autocomplete>
+        <div>
+          <p-autoComplete
+            class="m-0 p-0"
+            formControlName="selectedCountry"
+            [suggestions]="filteredCountries"
+            (completeMethod)="filterCountry($event)"
+            field="province_nameth"
+          >
+          </p-autoComplete>
         </div>
       </form>
     </div>
   </div>
+</p-dialog> -->
+
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="text-center mt-5 my-2">
+    <img src="{{ dataUser.profile }}" class="border-circle" alt="" />
+  </div>
+  <div class="text-center my-3">
+    <span style="font-size: 28px"
+      >ยินดีต้อนรับคุณ {{ dataUser.firstname }} {{ dataUser.lastname }}</span
+    >
+  </div>
+  <div class="text-center">
+    <span style="color: #444746"
+      >จัดการข้อมูล ความเป็นส่วนตัว
+      และความปลอดภัยเพื่อให้บัญชีของคุณมีประสิทธิภาพมากขึ้น</span
+    >
+  </div>
+
+  <div class="mt-5 w-7 mx-auto">
+    <p-card
+      header="ข้อมูลพื้นฐาน"
+      subheader="ผู้ใช้บริการ Google รายอื่นๆ อาจเห็นข้อมูลบางอย่างของคุณ ดูข้อมูลเพิ่มเติม"
+    >
+      <div class="content-data-user mx-5">
+        <div class="flex justify-content-between align-items-center">
+          <span class="imageProfile">รูปโปรไฟล์</span>
+          <span
+            >รูปโปรไฟล์ผู้ใช้จะต้องเปลี่ยนภายใน Google
+            และทำการเข้าสู่ระบบใหม่</span
+          >
+          <img
+            class="border-circle my-2"
+            src="{{ dataUser.profile }}"
+            alt=""
+            width="50"
+            height="50"
+          />
+        </div>
+        <hr />
+        <div class="flex justify-content-between align-items-center">
+          <span class="imageProfile">ชื่อ</span>
+          <span class="fname-lname uppercase"
+            >{{ dataUser.firstname }} {{ dataUser.lastname }}</span
+          >
+          <button
+            disabled
+            pButton
+            class="p-button-text rounded-circle p-button-primary border-circle"
+            (click)="showEditAddress()"
+          >
+            <i class="pi pi-arrow-right -p-1"></i>
+          </button>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="mt-5 w-7 mx-auto">
+    <p-card header="ข้อมูลติดต่อ">
+      <div class="content-data-user mx-5">
+        <div class="flex justify-content-between align-items-center my-4">
+          <span class="email">อีเมลล์</span>
+          <span>{{ dataUser.email }}</span>
+        </div>
+        <hr class="my-3" />
+        <div class="flex justify-content-between align-items-center">
+          <span class="numberphone">ชื่อ</span>
+          <span class="fname-lname uppercase">{{ dataUser.numberphone }}</span>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="mt-5 w-7 mx-auto">
+    <p-card header="ที่อยู่บ้าน">
+      <div class="content-data-user mx-5">
+        <div class="flex justify-content-between align-items-center my-4">
+          <span class="email">อีเมลล์</span>
+          <span>{{ dataUser.email }}</span>
+        </div>
+        <hr class="my-3" />
+        <div class="flex justify-content-between align-items-center">
+          <div>ที่อยู่บ้าน</div>
+          <div
+            class="dataProvince"
+            *ngIf="
+              !dataUser.province &&
+              !dataUser.amphure &&
+              !dataUser.tambon &&
+              !dataUser.zipcode
+            "
+          >
+            ไม่มีข้อมูล
+          </div>
+          <button
+            pButton
+            class="p-button-text rounded-circle p-button-primary border-circle"
+            (click)="showEditAddress()"
+          >
+            <i class="pi pi-arrow-right -p-1"></i>
+          </button>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
+
+<!-- DialogAddress -->
+<p-dialog
+  header="ฟอร์มแก้ไขที่อยู่บ้าน"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '80rem', height: '80rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+>
+  <form action="">
+
+    <div class="flex gap-3">
+      <span class="p-float-label mt-5 w-6">
+        <p-autoComplete
+          id="province"
+          styleClass="w-12"
+          [dropdown]="true"
+          formControlName="selectedCountry"
+          [suggestions]="filteredProvince"
+          (completeMethod)="filterProvince($event)"
+          field="province_nameth"
+        >
+        </p-autoComplete>
+        <label for="province">จังหวัด</label>
+      </span>
+
+      <span class="p-float-label mt-5 w-6">
+        <p-autoComplete
+          id="amphure"
+          styleClass="w-12"
+          [dropdown]="true"
+          formControlName="selectedAmphure"
+          [suggestions]="filteredAmphure"
+          (completeMethod)="filterAmphure($event)"
+          field="amphure_nameth"
+        >
+        </p-autoComplete>
+        <label for="amphure">อำเภอ</label>
+      </span>
+    </div>
+
+    <div class="flex gap-3">
+      <span class="p-float-label mt-5 w-6">
+        <p-autoComplete
+          id="tambon"
+          styleClass="w-12"
+          [dropdown]="true"
+          formControlName="selectedTambon"
+          [suggestions]="filteredTambon"
+          (completeMethod)="filterTambon($event)"
+          field="tambon_nameth"
+        >
+        </p-autoComplete>
+        <label for="tambon">ตำบล</label>
+      </span>
+
+      <span class="p-float-label mt-5 w-6">
+        <p-autoComplete
+          id="province"
+          styleClass="w-12"
+          [dropdown]="true"
+          formControlName="selectedCountry"
+          [suggestions]="filteredAmphure"
+          (completeMethod)="filterAmphure($event)"
+          field="amphure_nameth"
+        >
+        </p-autoComplete>
+        <label for="province">อำเภอ</label>
+      </span>
+    </div>
+
+  </form>
 </p-dialog>

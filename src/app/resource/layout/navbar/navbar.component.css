@@ -1,7 +1,7 @@
-::ng-deep .panel1{
+::ng-deep .overlay-panel1{
   background-color: #ECEFF7;
 }
 
-::ng-deep .tooltip {
+/* ::ng-deep .tooltip {
   width: 100em !important;
-}
+} */

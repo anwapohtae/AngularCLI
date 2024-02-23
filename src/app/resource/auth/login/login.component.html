@@ -1,7 +1,7 @@
-<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
-<section class="vh-100">
+<!-- <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
+<section class="h-screen">
   <div class="container-fluid h-custom">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="row flex justify-content-center align-items-center h-100">
       <div class="col-md-9 col-lg-6 col-xl-5">
         <img
           src="../../assets/images/logo.png"
@@ -35,13 +35,10 @@
   <div
     class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary"
   >
-    <!-- Copyright -->
     <div class="text-white mb-3 mb-md-0">
       Copyright © 2020. All rights reserved.
     </div>
-    <!-- Copyright -->
 
-    <!-- Right -->
     <div>
       <a href="#!" class="text-white me-4">
         <i class="fab fa-facebook-f"></i>
@@ -56,6 +53,38 @@
         <i class="fab fa-linkedin-in"></i>
       </a>
     </div>
-    <!-- Right -->
   </div>
-</section>
+</section> -->
+<p-toast
+  [showTransformOptions]="'translateY(10%)'"
+  [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'1000ms'"
+  [showTransformOptions]="'translateX(10%)'"
+></p-toast>
+
+<div class="sm:mx-7 flex justify-content-between -mb-8">
+  <img
+    src="../../assets/images/logo.png"
+    class="border-circle my-auto"
+    alt="Sample image"
+    style="width: 50%"
+  />
+  <div class="mx-auto my-auto">
+    <div class="" id="google-btn">
+      <img
+        src="../../../../assets/images/logo/google.png"
+        width="30"
+        height="30"
+        alt="icon-google"
+      />
+      <span class="my-auto ms-4">Continue with Google</span>
+    </div>
+    <button
+      pButton
+      class="p-button-raiset p-button-success my-2 w-12"
+      routerLink="/register"
+    >
+      <span class="mx-auto">ลงทะเบียน</span>
+    </button>
+  </div>
+</div>

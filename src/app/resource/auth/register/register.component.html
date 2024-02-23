@@ -1,82 +1,29 @@
-<section class="vh-100">
-  <p-toast></p-toast>
-  <div class="container-fluid h-custom">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-md-9 col-lg-6 col-xl-5">
-        <img
-          src="../../assets/images/logo.png"
-          class="img-fluid"
-          alt="Sample image"
-        />
-      </div>
-      <div class="col-md-8 col-lg-6 col-xl-4 w-50">
-        <div class="card">
-          <div class="card-header d-flex align-items-center">
-            <button pButton class="p-button-text rounded-circle p-2 p-button-secondary">
-            <i class="pi pi-arrow-left" routerLink="/login" style="font-size: 2rem"></i>
-            </button>
-            <span style="font-size: 22px;">ฟอร์มลงทะเบียน</span>
-          </div>
-          <div class="card-body">
-            <form (submit)="register()">
-              <p-inputGroup class="mb-2">
-                <input
-                  type="text"
-                  class="form-control rounded me-2"
-                  placeholder="Firstname"
-                  name="Firstname"
-                  [(ngModel)]="user.firstname"
-                />
-                <input
-                  type="text"
-                  class="form-control rounded"
-                  placeholder="Lastname"
-                  name="Lastname"
-                  [(ngModel)]="user.lastname"
-                />
-              </p-inputGroup>
 
-              <p-inputGroup class="mb-2">
-                <input
-                  type="text"
-                  class="form-control rounded me-2"
-                  type="date"
-                  name="age"
-                  [(ngModel)]="user.age"
-                />
-                <input
-                  type="text"
-                  placeholder="999-999-9999"
-                  class="form-control rounded"
-                  name="numberphone"
-                  maxlength="10"
-                  [(ngModel)]="user.numberphone"
-                />
-              </p-inputGroup>
-
-              <p-inputGroup class="mb-2">
-                <input
-                  type="text"
-                  class="form-control rounded me-2"
-                  type="email"
-                  placeholder="Emailaddress"
-                  name="email"
-                  [(ngModel)]="user.email"
-                />
-              </p-inputGroup>
-
-              <div class="me-auto">
-                <button
-                  pButton
-                  class="p-button-primary rounded"
-                  type="submit"
-                  label="ลงทะเบียน"
-                ></button>
-              </div>
-            </form>
-          </div>
+  <div class="mx-auto my-auto">
+      <button pButton class="p-button-text my-2 p-3" routerLink="/login">
+        <div>
+          <i class="pi pi-arrow-left"></i>
+          กลับไปยังหน้าหลัก
         </div>
-      </div>
-    </div>
+      </button>
+    <p-card header="Advanced Card" subheader="Card Subheader">
+      <!-- <ng-template pTemplate="header">
+      <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+    </ng-template> -->
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed
+        consequuntur error repudiandae numquam deserunt quisquam repellat libero
+        asperiores earum nam nobis, culpa ratione quam perferendis esse,
+        cupiditate neque quas!
+      </p>
+      <ng-template pTemplate="footer">
+        <p-button label="Save" icon="pi pi-check"></p-button>
+        <p-button
+          label="Cancel"
+          icon="pi pi-times"
+          styleClass="p-button-secondary"
+          [style]="{ 'margin-left': '.5em' }"
+        ></p-button>
+      </ng-template>
+    </p-card>
   </div>
-</section>
