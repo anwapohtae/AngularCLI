@@ -3,14 +3,21 @@ import { User } from '../../../modules/user';
 import { UserService } from '../../../services/user/user.service';
 import { jwtDecode } from 'jwt-decode';
 import { ThaidataService } from '../../../services/thia-data/thaidata.service';
-import { log } from 'console';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Thaidata } from '../../../modules/thai-data';
+import { get } from 'http';
+import { log } from 'console';
+import { filter } from 'rxjs';
 
-interface localtion {
+interface Province {
   province_nameth: string;
+  province_id: number;
+}
+
+interface Amphures {
   amphure_nameth: string;
-  tambon_nameth: string;
-  // Define other properties of the country object if there are any
+  amphure_id: number;
+  province_id: number;
 }
 
 @Component({
@@ -21,18 +28,36 @@ interface localtion {
 export class PersonalComponent implements OnInit {
   getId: any = null;
 
-  dataUser!: User;
+  dataUser = {
+    firstname: null,
+    lastname: null,
+    googlefirstsname: null,
+    googlelastname: null,
+    age: null,
+    numberphone: null,
+    googleid: null,
+    email: null,
+    profile: null,
+    province: null,
+    amphure: null,
+    tambon: null,
+    zipcode: null,
+  };
+  dataProvinces!: any;
+  dataAmphure!: any[];
+  dataTambon!: any;
+  dataZipcode!: any;
 
+  autoZipcode = '';
+
+  // disabled
   visible = false;
-  thaiData!: any;
-
-  // autocomplete
+  inputAmphureDropdown = true;
+  inputTambonDropdown = true;
 
   formGroup!: FormGroup;
 
   filteredProvince: any = [];
-  filteredAmphure: any = [];
-  filteredTambon: any = [];
 
   constructor(
     private _userService: UserService,
@@ -45,12 +70,15 @@ export class PersonalComponent implements OnInit {
     const decodeToken: any = jwtDecode(getToken);
     this.getId = decodeToken.userId;
 
-    this._userService.getUserById(this.getId).subscribe((res) => {
-      this.dataUser = res as User;
+    this._userService.getUserById(this.getId).subscribe({
+      next: (res) => {
+        this.dataUser = res;
+      },
     });
 
-    this._thaidataService.getAllThaiData().subscribe((res) => {
-      this.thaiData = res;
+    // GetProvinces
+    this._thaidataService.getProvinces().subscribe((res) => {
+      this.dataProvinces = res;
     });
 
     this.formGroup = new FormGroup({
@@ -58,85 +86,55 @@ export class PersonalComponent implements OnInit {
     });
   }
 
-  // autocomplete province
   filterProvince(event: any) {
+    let filtered: Province[] = [];
     let query = event.query;
 
-    // สร้าง Set เพื่อเก็บชื่อจังหวัดโดยไม่ให้ซ้ำกัน
-    let uniqueProvinces = new Set<string>();
+      (this.dataProvinces as Province[]).forEach((province: Province) => {
+        if (
+          province.province_nameth.toLowerCase().indexOf(query.toLowerCase()) ==
+            0 ||
+          province.province_id.toString().indexOf(query.toLowerCase()) == 0
+        ) {
+          filtered.push(province);
+        }
+      });
 
-    // กรองข้อมูลโดยเพิ่มชื่อจังหวัดเข้าไปใน Set
-    this.thaiData.forEach((province: localtion) => {
-      if (
-        province.province_nameth.toLowerCase().startsWith(query.toLowerCase())
-      ) {
-        uniqueProvinces.add(province.province_nameth);
-      }
-    });
-
-    // แปลง Set เป็นอาร์เรย์
-    let uniqueProvincesArray = Array.from(uniqueProvinces);
-
-    // กำหนดค่าให้กับ filteredProvince โดยใช้ข้อมูลที่ไม่ซ้ำกัน
-    this.filteredProvince = uniqueProvincesArray.map((provinceName) => {
-      return {
-        province_nameth: provinceName,
-      };
-    });
+    this.filteredProvince = filtered;
   }
 
-  // autocomplete amphure
-  filterAmphure(event: any) {
-    let query = event.query;
-
-    // สร้าง Set เพื่อเก็บชื่อจังหวัดโดยไม่ให้ซ้ำกัน
-    let uniqueAmphure = new Set<string>();
-
-    // กรองข้อมูลโดยเพิ่มชื่อจังหวัดเข้าไปใน Set
-    this.thaiData.forEach((amphure: localtion) => {
-      if (
-        amphure.amphure_nameth.toLowerCase().startsWith(query.toLowerCase())
-      ) {
-        uniqueAmphure.add(amphure.amphure_nameth);
-      }
-    });
-
-    // แปลง Set เป็นอาร์เรย์
-    let uniqueAmphureArray = Array.from(uniqueAmphure);
-
-    // กำหนดค่าให้กับ filteredCountries โดยใช้ข้อมูลที่ไม่ซ้ำกัน
-    this.filteredAmphure = uniqueAmphureArray.map((amphureName) => {
-      return {
-        amphure_nameth: amphureName,
-      };
-    });
+  amphure(event: any) {
+    this.inputAmphureDropdown = false;
+    const getidProvince = event.value.province_id;
+    this._thaidataService
+      .getAmphureByProvinceId(getidProvince)
+      .subscribe((res) => {
+        this.dataAmphure = res;
+      });
   }
 
-  // autocomplete amphure
-  filterTambon(event: any) {
-    let query = event.query;
+  tambon(event: any) {
+    this.inputTambonDropdown = false;
+    const getidAmphure = event.value.amphure_id;
 
-    // สร้าง Set เพื่อเก็บชื่อจังหวัดโดยไม่ให้ซ้ำกัน
-    let uniqueTambon = new Set<string>();
+    this._thaidataService
+      .getTambonByAmphureId(getidAmphure)
+      .subscribe((res) => {
+        this.dataTambon = res;
+      });
+  }
 
-    // กรองข้อมูลโดยเพิ่มชื่อจังหวัดเข้าไปใน Set
-    this.thaiData.forEach((tambon: localtion) => {
-      if (
-        tambon.tambon_nameth.toLowerCase().startsWith(query.toLowerCase())
-      ) {
-        uniqueTambon.add(tambon.tambon_nameth);
-      }
-    });
+  zipcode(event: any) {
+    const getidTambon = event.value.tambon_id
+    this._thaidataService
+    .getZipcodeByTambonId(getidTambon)
+    .subscribe((res: Thaidata[]) => {
+      this.dataZipcode = res
+      console.log(this.dataZipcode);
+      this.autoZipcode = this.dataZipcode[0].zipcode
+    })
 
-    // แปลง Set เป็นอาร์เรย์
-    let uniqueTambonArray = Array.from(uniqueTambon);
 
-    // กำหนดค่าให้กับ filteredCountries โดยใช้ข้อมูลที่ไม่ซ้ำกัน
-    this.filteredTambon = uniqueTambonArray.map((tambonName) => {
-      return {
-        tambon_nameth: tambonName,
-      };
-    });
   }
 
   showEditAddress() {

@@ -145,7 +145,7 @@
 
 <div class="container">
   <div class="text-center mt-5 my-2">
-    <img src="{{ dataUser.profile }}" class="border-circle" alt="" />
+    <img [src]="dataUser.profile" class="border-circle" alt="" />
   </div>
   <div class="text-center my-3">
     <span style="font-size: 28px"
@@ -252,71 +252,71 @@
 <p-dialog
   header="ฟอร์มแก้ไขที่อยู่บ้าน"
   [(visible)]="visible"
+  [draggable]="false"
   [modal]="true"
-  [style]="{ width: '80rem', height: '80rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '80rem', height: '40rem' }"
 >
-  <form action="">
-
+  <form [formGroup]="formGroup" action="">
     <div class="flex gap-3">
       <span class="p-float-label mt-5 w-6">
         <p-autoComplete
-          id="province"
-          styleClass="w-12"
-          [dropdown]="true"
-          formControlName="selectedCountry"
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          formControlName="selectedProvince"
           [suggestions]="filteredProvince"
           (completeMethod)="filterProvince($event)"
           field="province_nameth"
-        >
-        </p-autoComplete>
+          [dropdown]="true"
+          (onSelect)="amphure($event)"
+        ></p-autoComplete>
         <label for="province">จังหวัด</label>
       </span>
 
       <span class="p-float-label mt-5 w-6">
-        <p-autoComplete
-          id="amphure"
-          styleClass="w-12"
-          [dropdown]="true"
-          formControlName="selectedAmphure"
-          [suggestions]="filteredAmphure"
-          (completeMethod)="filterAmphure($event)"
-          field="amphure_nameth"
-        >
-        </p-autoComplete>
+        <p-dropdown
+          [filter]="true"
+          [options]="dataAmphure"
+          [disabled]="inputAmphureDropdown"
+          optionLabel="amphure_nameth"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
+          placeholder="เลือกอำเภอ"
+          (onChange)="tambon($event)"
+        ></p-dropdown>
         <label for="amphure">อำเภอ</label>
       </span>
     </div>
 
     <div class="flex gap-3">
       <span class="p-float-label mt-5 w-6">
-        <p-autoComplete
-          id="tambon"
-          styleClass="w-12"
-          [dropdown]="true"
-          formControlName="selectedTambon"
-          [suggestions]="filteredTambon"
-          (completeMethod)="filterTambon($event)"
-          field="tambon_nameth"
-        >
-        </p-autoComplete>
-        <label for="tambon">ตำบล</label>
+        <p-dropdown
+          [filter]="true"
+          [options]="dataTambon"
+          [disabled]="inputTambonDropdown"
+          optionLabel="tambon_nameth"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
+          placeholder="เลือกตำบล"
+          (onChange)="zipcode($event)"
+        ></p-dropdown>
+        <label for="amphure">ตำบล</label>
       </span>
 
       <span class="p-float-label mt-5 w-6">
-        <p-autoComplete
-          id="province"
-          styleClass="w-12"
-          [dropdown]="true"
-          formControlName="selectedCountry"
-          [suggestions]="filteredAmphure"
-          (completeMethod)="filterAmphure($event)"
-          field="amphure_nameth"
-        >
-        </p-autoComplete>
-        <label for="province">อำเภอ</label>
+        <input
+          pInputText
+          type="text"
+          disabled="true"
+          [value]="autoZipcode"
+          [style]="{ width: '100%' }"
+          placeholder="รหัสไปรษณีย์"
+          [(ngModel)]="autoZipcode"
+        />
+        <label for="zipcode">รหัสไปรษณีย์</label>
       </span>
     </div>
-
   </form>
+  <ng-template pTemplate="footer">
+    <p-button type="submit" icon="pi pi-check" label="บันทึก"></p-button>
+  </ng-template>
 </p-dialog>

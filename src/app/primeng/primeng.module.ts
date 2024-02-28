@@ -16,7 +16,7 @@ import { MenuModule } from 'primeng/menu';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { SplitterModule } from 'primeng/splitter';
 import { CardModule } from 'primeng/card';
-
+import { TreeSelectModule } from 'primeng/treeselect';
 
 const PrimengComponent = [
   CommonModule,
@@ -34,7 +34,8 @@ const PrimengComponent = [
   MenuModule,
   AutoCompleteModule,
   SplitterModule,
-  CardModule
+  CardModule,
+  TreeSelectModule
 ]
 
 @NgModule({
