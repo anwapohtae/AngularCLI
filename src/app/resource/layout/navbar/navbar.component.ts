@@ -18,11 +18,6 @@ export class NavbarComponent implements OnInit {
     lastname: null,
     profile: null
   }
-
-  positionTop = '20px';
-  border = '0px'
-  borderWith = '0px'
-  overlayArrowLeft = '0px'
   constructor(
     private _authService: AuthService,
     private userService: UserService
@@ -44,13 +39,14 @@ export class NavbarComponent implements OnInit {
 
         this.userService.getUserById(this.user.id).subscribe(
           (res) => {
-            // console.log('User data:', res);
             this.user = res;
           }
         )
       } else {
         console.error('Token not found in localStorage');
       }
+
+
     }
 
     visible: boolean = false;

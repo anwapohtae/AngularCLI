@@ -2,6 +2,10 @@
   background-color: #ECEFF7;
 }
 
+::ng-deep .logoWeb {
+  cursor: pointer;
+}
+
 /* ::ng-deep .tooltip {
   width: 100em !important;
 } */

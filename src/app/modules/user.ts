@@ -13,6 +13,7 @@ export interface User {
   amphure: string;
   tambon: string;
   zipcode: string;
+  role: string;
 
   // Add more properties as needed
 }

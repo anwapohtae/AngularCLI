@@ -142,6 +142,12 @@
 </p-dialog> -->
 
 <app-navbar></app-navbar>
+<p-toast
+  [showTransformOptions]="'translateY(100%)'"
+  [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'1000ms'"
+  [showTransformOptions]="'translateX(100%)'"
+></p-toast>
 
 <div class="container">
   <div class="text-center mt-5 my-2">
@@ -217,23 +223,17 @@
   <div class="mt-5 w-7 mx-auto">
     <p-card header="ที่อยู่บ้าน">
       <div class="content-data-user mx-5">
-        <div class="flex justify-content-between align-items-center my-4">
-          <span class="email">อีเมลล์</span>
-          <span>{{ dataUser.email }}</span>
-        </div>
         <hr class="my-3" />
         <div class="flex justify-content-between align-items-center">
           <div>ที่อยู่บ้าน</div>
-          <div
-            class="dataProvince"
-            *ngIf="
-              !dataUser.province &&
-              !dataUser.amphure &&
-              !dataUser.tambon &&
-              !dataUser.zipcode
-            "
-          >
+          <div class="dataProvince" *ngIf="!(dataUser.province && dataUser.amphure&& dataUser.tambon && dataUser.zipcode)">
+            <!-- ตรวจสอบข้อมูล หากไม่มีข้อมูลให้แสดงข้อมูล -->
             ไม่มีข้อมูล
+
+          </div>
+          <div *ngIf="dataUser.province && dataUser.amphure&& dataUser.tambon && dataUser.zipcode" class="noData">
+            ตำบล {{ dataUser.tambon }} อำเภอ {{ dataUser.amphure }} จังหวัด
+            {{ dataUser.province }} รหัสไปรษณีย์ {{ dataUser.zipcode }}
           </div>
           <button
             pButton
@@ -256,67 +256,99 @@
   [modal]="true"
   [style]="{ width: '80rem', height: '40rem' }"
 >
-  <form [formGroup]="formGroup" action="">
+  <ng-template pTemplate="content">
     <div class="flex gap-3">
-      <span class="p-float-label mt-5 w-6">
-        <p-autoComplete
-          [style]="{ width: '100%' }"
-          [inputStyle]="{ width: '100%' }"
-          formControlName="selectedProvince"
-          [suggestions]="filteredProvince"
-          (completeMethod)="filterProvince($event)"
-          field="province_nameth"
-          [dropdown]="true"
-          (onSelect)="amphure($event)"
-        ></p-autoComplete>
-        <label for="province">จังหวัด</label>
-      </span>
+      <div class="field w-12">
+        <span class="p-float-label mt-5">
+          <p-autoComplete
+            [(ngModel)]="selectedProvince"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [suggestions]="filteredProvince"
+            (completeMethod)="filterProvince($event)"
+            field="province_nameth"
+            [dropdown]="true"
+            (onSelect)="amphure($event)"
+          ></p-autoComplete>
+          <label for="province">จังหวัด</label>
+        </span>
+        <small class="p-error" *ngIf="submitted && !selectedProvince"
+          >Province is required.</small
+        >
+      </div>
 
-      <span class="p-float-label mt-5 w-6">
-        <p-dropdown
-          [filter]="true"
-          [options]="dataAmphure"
-          [disabled]="inputAmphureDropdown"
-          optionLabel="amphure_nameth"
-          [style]="{ width: '100%' }"
-          [showClear]="true"
-          placeholder="เลือกอำเภอ"
-          (onChange)="tambon($event)"
-        ></p-dropdown>
-        <label for="amphure">อำเภอ</label>
-      </span>
+      <div class="field w-12">
+        <span class="p-float-label mt-5">
+          <p-dropdown
+            [(ngModel)]="selectedAmphure"
+            [filter]="true"
+            [options]="dataAmphure"
+            [disabled]="inputAmphureDropdown"
+            optionLabel="amphure_nameth"
+            [style]="{ width: '100%' }"
+            placeholder="เลือกอำเภอ"
+            (onChange)="tambon($event)"
+          ></p-dropdown>
+          <label for="amphure">อำเภอ</label>
+        </span>
+        <small class="p-error" *ngIf="submitted && !selectedAmphure"
+          >Amphure is required.</small
+        >
+      </div>
     </div>
 
     <div class="flex gap-3">
-      <span class="p-float-label mt-5 w-6">
-        <p-dropdown
-          [filter]="true"
-          [options]="dataTambon"
-          [disabled]="inputTambonDropdown"
-          optionLabel="tambon_nameth"
-          [style]="{ width: '100%' }"
-          [showClear]="true"
-          placeholder="เลือกตำบล"
-          (onChange)="zipcode($event)"
-        ></p-dropdown>
-        <label for="amphure">ตำบล</label>
-      </span>
+      <div class="field w-12">
+        <span class="p-float-label mt-5">
+          <p-dropdown
+            [(ngModel)]="selectedTambon"
+            [filter]="true"
+            [options]="dataTambon"
+            [disabled]="inputTambonDropdown"
+            optionLabel="tambon_nameth"
+            [style]="{ width: '100%' }"
+            placeholder="เลือกตำบล"
+            (onChange)="zipcode($event)"
+          ></p-dropdown>
+          <label for="amphure">ตำบล</label>
+        </span>
+        <small class="p-error" *ngIf="submitted && !selectedTambon"
+          >Tambon is required.</small
+        >
+      </div>
 
-      <span class="p-float-label mt-5 w-6">
-        <input
-          pInputText
-          type="text"
-          disabled="true"
-          [value]="autoZipcode"
-          [style]="{ width: '100%' }"
-          placeholder="รหัสไปรษณีย์"
-          [(ngModel)]="autoZipcode"
-        />
-        <label for="zipcode">รหัสไปรษณีย์</label>
-      </span>
+      <div class="field w-12">
+        <span class="p-float-label mt-5 ">
+          <input
+            [(ngModel)]="selectedZipcode"
+            pInputText
+            type="text"
+            disabled="true"
+            [value]="autoZipcode"
+            [style]="{ width: '100%' }"
+            placeholder="รหัสไปรษณีย์"
+          />
+          <label for="zipcode">รหัสไปรษณีย์</label>
+        </span>
+      </div>
     </div>
-  </form>
+  </ng-template>
+
   <ng-template pTemplate="footer">
-    <p-button type="submit" icon="pi pi-check" label="บันทึก"></p-button>
+    <button
+      pButton
+      type="submit"
+      class="p-button-danger"
+      icon="pi pi-times"
+      label="ยกเลิก"
+      (click)="visible = false"
+    ></button>
+    <button
+      pButton
+      type="submit"
+      icon="pi pi-check"
+      label="บันทึก"
+      (click)="save()"
+    ></button>
   </ng-template>
 </p-dialog>

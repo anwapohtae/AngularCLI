@@ -12,7 +12,7 @@ export class AuthService {
     private http: HttpClient,
     private _router: Router,
     private _ngZone: NgZone
-    ) {}
+  ) {}
 
   private apiUrl = 'http://localhost:8080/api/auth/';
 
@@ -27,18 +27,21 @@ export class AuthService {
   }
 
   loggedIn() {
-    const token: any = localStorage.getItem('token')
-    return token
-
+    const token: any = localStorage.getItem('token');
+    // if (token !== null) {
+    //   this._router.navigate(['/home'])
+    // }
+    return !!localStorage.getItem('token');
   }
 
   logoutedUser() {
-    localStorage.removeItem('token')
-    this._ngZone.run(() => this._router.navigateByUrl('/login?logoutedUser=success')); //เมื่อ navigate ไปที่ "" ให้แสเงข้อความนี้หน้า this.messageService.add({severity: 'success', summary: 'Success', detail: 'ลงทะเบียนสำเร็จ',});
-
+    localStorage.removeItem('token');
+    this._ngZone.run(() =>
+      this._router.navigateByUrl('/login?logoutedUser=success')
+    ); //เมื่อ navigate ไปที่ "" ให้แสเงข้อความนี้หน้า this.messageService.add({severity: 'success', summary: 'Success', detail: 'ลงทะเบียนสำเร็จ',});
   }
 
   getToken() {
-    return localStorage.getItem('token')
+    return localStorage.getItem('token');
   }
 }

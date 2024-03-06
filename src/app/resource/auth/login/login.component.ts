@@ -68,10 +68,8 @@ export class LoginComponent implements OnInit {
 
   loginUser(response: any) {
     if (response) {
-      // Decode the token
       const decodeToken = jwtDecode(response.credential);
 
-      // Store in session
       localStorage.setItem('tokenuser', JSON.stringify(decodeToken));
 
       const getData = localStorage.getItem('tokenuser');
@@ -86,15 +84,14 @@ export class LoginComponent implements OnInit {
           profile: tokenData.picture,
         };
 
+
         this._authService.loginUser(data as User).subscribe(
           (res: any) => {
             localStorage.removeItem('tokenuser');
-            // console.log(res.token);
-            // localStorage.setItem('token', JSON.stringify(res.token));
 
             this._ngZone.run(() =>
             this.router.navigateByUrl('/home?loggedIn=success')
-            ); //เมื่อ navigate ไปที่ "" ให้แสเงข้อความนี้หน้า this.messageService.add({severity: 'success', summary: 'Success', detail: 'ลงทะเบียนสำเร็จ',});
+            );
             localStorage.setItem('token', res.token);
           },
           (err) => {

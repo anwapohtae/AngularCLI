@@ -17,6 +17,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { SplitterModule } from 'primeng/splitter';
 import { CardModule } from 'primeng/card';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { CalendarModule } from 'primeng/calendar';
+import { TabViewModule } from 'primeng/tabview';
 
 const PrimengComponent = [
   CommonModule,
@@ -35,7 +37,9 @@ const PrimengComponent = [
   AutoCompleteModule,
   SplitterModule,
   CardModule,
-  TreeSelectModule
+  TreeSelectModule,
+  CalendarModule,
+  TabViewModule
 ]
 
 @NgModule({

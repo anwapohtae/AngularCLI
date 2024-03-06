@@ -21,6 +21,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { TokenInterceptorService } from './services/token-interceptor/token-interceptor.service';
 import { UserService } from './services/user/user.service';
 import { PersonalComponent } from './resource/user/personal/personal.component';
+import { StaffComponent } from './resource/staff/staff/staff.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PersonalComponent } from './resource/user/personal/personal.component';
     NavbarComponent,
     HomeComponent,
     EdituserComponent,
-    PersonalComponent
+    PersonalComponent,
+    StaffComponent
    ],
   imports: [
     BrowserAnimationsModule,

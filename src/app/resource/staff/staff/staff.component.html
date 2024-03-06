@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+<div class="container px-7 mt-5">
+  <form [formGroup]="formStaff" (ngSubmit)="Onsubmit()">
+    <p-card class="" header="แบบข้อมูลประวัติข้าราชการและลูกจ้างประจำ" [style]="{ width: 'width' }"
+      styleClass="styleClass">
+      <div class="flex mt-5">
+        <div class="field text-base mx-auto">
+          <span class="mr-2">๑. คำนำหน้าชื่อ</span>
+          <p-dropdown class="mr-2 w-12" formControlName="prefixth" [options]="prefix" optionLabel="name_th"
+            placeholder="Select a City" placeholder="คำนำหน้าชื่อ"></p-dropdown>
+          <span class="mr-2">,</span>
+          <span class="mr-2">ชื่อสกุลเจ้าของประวัติ</span>
+          <input type="text" formControlName="firstnameth" name="firstname_th" id="firstname_th" class="mr-2"
+            placeholder="ชื่อภาษาไทย" pInputText />
+          <span class="mr-2">นามสกุล</span>
+          <input formControlName="lastnameth" type="text" name="lastname_th" id="lastname_th" class="mr-2"
+            placeholder="นามสกุลภาษไทย" pInputText />
+          <span class="mr-2">ชื่อเล่น</span>
+          <input formControlName="nickname" type="text" name="nickname" id="nickname" class="mr-2"
+            placeholder="ชื่อเล่น" pInputText />
+        </div>
+      </div>
+      <div class="flex lg:px-9">
+        <div class="field text-base mx-auto">
+          <span class="mr-2">คำนำหน้าชื่อ</span>
+          <p-dropdown formControlName="prefixen" class="mr-2" [options]="prefix" optionLabel="name_en"
+            placeholder="Select a City" placeholder="คำนำหน้าชื่อ"></p-dropdown>
+          <span class="mr-2">,</span>
+          <span class="mr-2">ชื่อสกุล (ภาษาอังกฤษ)</span>
+          <input formControlName="firstname_en" type="text" name="firstname_en" id="firstname_en" class="mr-2"
+            pInputText />
+          <span class="mr-2">นามสกุล</span>
+          <input formControlName="lastname_en" type="text" name="lastname_en" id="lastname_en" class="mr-2"
+            pInputText />
+          <span class="mr-2">ตำแหน่ง</span>
+          <p-dropdown [options]="position" formControlName="" class="mr-2" optionLabel="name_th"
+            placeholder="Select a Position" placeholder="ตำแหน่ง"></p-dropdown>
+        </div>
+      </div>
+      <div class="flex lg:px-9">
+        <div class="field text-base mx-auto">
+          <span class="mr-2">เกิดเมื่อวันที่</span>
+          <p-calendar class="mr-2" formControlName="birthdayme" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
+          <span class="mr-2">ศาสนา</span>
+          <p-dropdown [options]="religion" formControlName="" class="mr-2" optionLabel="religion"
+            placeholder="ศาสนา"></p-dropdown>
+          <span class="mr-2">เลขบัตรประจำตัวประชาชน</span>
+          <p-inputMask class="mr-2" mask="9-9999-99999-99-9" [(ngModel)]="cardnumber"
+            placeholder="กรอกเลขบัตรประจำตัวประชาชน"></p-inputMask>
+          <span class="mr-2">หมู่โลหิต</span>
+          <p-dropdown [options]="blood" formControlName="" class="mr-2" optionLabel="bloodgroup"
+            placeholder="กรุ๊ปเลือด"></p-dropdown>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="flex mt-5">
+        <div class="field text-base mx-auto">
+          <span class="mr-2">๑. ที่พักอาศัยปัจจุบัน บ้านเลขที่</span>
+          <input type="text" name="numberHouse" id="numberHouse" class="mr-2" pInputText />
+          <span class="mr-2">หมู่ที่</span>
+          <input type="text" name="" id="" class="mr-2">
+        </div>
+      </div>
+      <div class="flex lg:px-9">
+        <div class="field text-base mx-auto">
+
+        </div>
+      </div>
+      <div class="flex lg:px-9">
+        <div class="field text-base mx-auto">
+
+        </div>
+      </div>
+      <p-footer>
+        <button type="submit" class="p-button-primary" label="Submit" pButton></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>

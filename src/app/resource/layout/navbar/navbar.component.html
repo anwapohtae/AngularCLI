@@ -1,107 +1,12 @@
-<!-- <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid mx-5">
-    <a class="navbar-brand" routerLink="/home">AngularLogo</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="d-flex justify-content-end w-100">
-        <span class="me-2 my-auto" style="text-transform: uppercase"
-          >{{ user.firstname }} {{ user.lastname }}</span
-        >
-        <div style="margin-top: -10px">
-          <button
-            pButton
-            [pTooltip]="profile"
-            (click)="op1.toggle($event)"
-            tooltipStyleClass="tooltip"
-            class="p-button-raised p-button-success rounded-circle p-0 mt-3"
-            type="button"
-          >
-            <img
-              [src]="user.profile"
-              class="rounded-circle m-0"
-              alt=""
-              width="40"
-              height="40"
-            />
-          </button>
-        </div>
-
-        <p-overlayPanel
-              #op1
-              styleClass="panel1 col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 col-xxl-2"
-            >
-              <div
-                class="text-center"
-                style="font-size: 12px; font-weight: bold"
-              >
-                {{ user.email }}
-              </div>
-              <div class="text-center my-2">
-                <img [src]="user.profile" class="rounded-circle" alt="" />
-              </div>
-              <div class="text-center my-2">
-                <button
-                  pButton
-                  class="rounded p-button-outlined p-button-secondary"
-                  routerLink="/personal-info"
-                >
-                  <span style="color: #0b57d0">จัดการบัญชีผู้ใช้</span>
-                </button>
-              </div>
-              <div class="text-center">
-                <button
-                  pButton
-                  class="p-button-outlined p-button-secondary rounded"
-                  (click)="Logout()"
-                >
-                  <i class="pi pi-power-off me-2" style="font-size: 1rem"></i>
-                  <span>ออกจากระบบ</span>
-                </button>
-              </div>
-            </p-overlayPanel>
-
-        <ng-template #profile class="me-1">
-          <div style="font-size: 12px; color: rgb(255, 255, 255);">
-            บัญชี Google
-          </div>
-          <div
-            style="
-              text-transform: uppercase;
-              font-size: 12px;
-              color: rgba(255, 255, 255, 0.623);
-            "
-          >
-            {{ user.firstname }} {{ user.lastname }}
-          </div>
-          <div
-            style="
-              text-transform: uppercase;
-              font-size: 12px;
-              color: rgba(255, 255, 255, 0.623);
-            "
-          >
-            {{ user.email }}
-          </div>
-        </ng-template>
-      </div>
-    </div>
-  </div>
-</nav> -->
-
 <div class="p-2 px-7 bg-blue-200 border-round-lg flex justify-content-between">
-  <div class="logoWeb my-auto text-lg">LOGOWEBSITE</div>
+  <div class="logoWeb my-auto text-3xl" routerLink="/home">
+    โรงพยาบาลธัญญารักษ์ปัตตานี
+    <span class="text-base">เฉพาะบุคลากร</span>
+  </div>
   <div class="flex">
-    <span class="my-auto mr-2 uppercase"> {{ user.firstname }} {{ user.lastname }} </span>
+    <span class="my-auto mr-2 uppercase font-medium">
+      {{ user.firstname }} {{ user.lastname }}
+    </span>
 
     <button
       pButton
@@ -145,7 +50,7 @@
       #op1
       styleClass="overlay-panel1 col-6 sm:col-5 md:col-4 lg:col-3 xl:col-2"
     >
-      <div class="text-center font-bold" style="font-size: 12px;">
+      <div class="text-center font-bold" style="font-size: 12px">
         {{ user.email }}
       </div>
       <div class="text-center my-2">
