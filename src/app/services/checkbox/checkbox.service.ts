@@ -27,7 +27,4 @@ export class CheckboxService {
     return this.http.get<any[]>(`${this.apiUrl}status`)
   }
 
-
-
-
 }

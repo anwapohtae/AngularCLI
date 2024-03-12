@@ -226,12 +226,29 @@
         <hr class="my-3" />
         <div class="flex justify-content-between align-items-center">
           <div>ที่อยู่บ้าน</div>
-          <div class="dataProvince" *ngIf="!(dataUser.province && dataUser.amphure&& dataUser.tambon && dataUser.zipcode)">
+          <div
+            class="dataProvince"
+            *ngIf="
+              !(
+                dataUser.province &&
+                dataUser.amphure &&
+                dataUser.tambon &&
+                dataUser.zipcode
+              )
+            "
+          >
             <!-- ตรวจสอบข้อมูล หากไม่มีข้อมูลให้แสดงข้อมูล -->
             ไม่มีข้อมูล
-
           </div>
-          <div *ngIf="dataUser.province && dataUser.amphure&& dataUser.tambon && dataUser.zipcode" class="noData">
+          <div
+            *ngIf="
+              dataUser.province &&
+              dataUser.amphure &&
+              dataUser.tambon &&
+              dataUser.zipcode
+            "
+            class="noData"
+          >
             ตำบล {{ dataUser.tambon }} อำเภอ {{ dataUser.amphure }} จังหวัด
             {{ dataUser.province }} รหัสไปรษณีย์ {{ dataUser.zipcode }}
           </div>
@@ -318,7 +335,7 @@
       </div>
 
       <div class="field w-12">
-        <span class="p-float-label mt-5 ">
+        <span class="p-float-label mt-5">
           <input
             [(ngModel)]="selectedZipcode"
             pInputText

@@ -19,6 +19,7 @@ import { CardModule } from 'primeng/card';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 const PrimengComponent = [
   CommonModule,
@@ -39,7 +40,8 @@ const PrimengComponent = [
   CardModule,
   TreeSelectModule,
   CalendarModule,
-  TabViewModule
+  TabViewModule,
+  RadioButtonModule
 ]
 
 @NgModule({

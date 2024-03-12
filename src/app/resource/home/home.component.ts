@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
   private getUsers() {
     this.userService.getUserById(this.getId).subscribe({
       next: (res) => {
-        this.dataUser = res;
+        this.dataUser = res as User;
       },
     });
   }
