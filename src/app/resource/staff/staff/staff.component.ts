@@ -52,6 +52,51 @@ export class StaffComponent implements OnInit {
   visibleLife = true;
   visibleDead = true;
 
+  th = {
+    firstDayOfWeek: 1,
+    dayNames: [
+      'วันอาทิตย์',
+      'วันจันทร์',
+      'วันอังคาร',
+      'วันพุธ',
+      'วันพฤหัสบดี',
+      'วันศุกร์',
+      'วันเสาร์',
+    ],
+    dayNamesShort: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
+    dayNamesMin: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
+    monthNames: [
+      'มกราคม',
+      'กุมภาพันธ์',
+      'มีนาคม',
+      'เมษายน',
+      'พฤษภาคม',
+      'มิถุนายน',
+      'กรกฎาคม',
+      'สิงหาคม',
+      'กันยายน',
+      'ตุลาคม',
+      'พฤศจิกายน',
+      'ธันวาคม',
+    ],
+    monthNamesShort: [
+      'ม.ค.',
+      'ก.พ.',
+      'มี.ค.',
+      'เม.ย.',
+      'พ.ค.',
+      'มิ.ย.',
+      'ก.ค.',
+      'ส.ค.',
+      'ก.ย.',
+      'ต.ค.',
+      'พ.ย.',
+      'ธ.ค.',
+    ],
+    today: 'วันนี้',
+    clear: 'ลบทิ้ง',
+  };
+
   constructor(private _checkbox: CheckboxService) {}
 
   ngOnInit() {
@@ -203,13 +248,22 @@ export class StaffComponent implements OnInit {
     const positionValue = this.formStaff.get('position')?.value.name_th;
     const religionValue = this.formStaff.get('religion')?.value.religion;
     const bloodValue = this.formStaff.get('blood')?.value.bloodgroup;
+    const birthdaymeValue = this.formStaff.get('birthdayme')?.value;
+
+    // Next, extract day, month, and year from the birthdayme value
+    const day = birthdaymeValue.getDate(); // Method to get day of the month (1-31)
+    const month = birthdaymeValue.getMonth() + 1; // Month index starts from 0 (0-11), so adding 1
+    const year = birthdaymeValue.getFullYear(); // Four-digit year
 
     this.formStaff.value.prefixth = prefixthValue;
     this.formStaff.value.prefixen = prefixenValue;
     this.formStaff.value.position = positionValue;
     this.formStaff.value.religion = religionValue;
     this.formStaff.value.blood = bloodValue;
-
+    this.formStaff.value.blood = bloodValue;
+    this.formStaff.get('day')?.setValue(day);
+    this.formStaff.get('month')?.setValue(month);
+    this.formStaff.get('year')?.setValue(year);
     // Menampilkan formStaff dengan modifikasi
     console.log(this.formStaff);
   }
@@ -226,8 +280,10 @@ export class StaffComponent implements OnInit {
 
   public async generatePDF(): Promise<void> {
     const pdfDefinition: TDocumentDefinitions = {
+      pageSize: 'A4',
       content: [
         {
+          margin: [20, 0, 0, 0],
           columns: [
             {
               stack: [
@@ -237,6 +293,7 @@ export class StaffComponent implements OnInit {
                   bold: true,
                   fontSize: 18,
                 },
+
                 {
                   margin: [0, 10, 0, 0],
                   alignment: 'center',
@@ -245,32 +302,35 @@ export class StaffComponent implements OnInit {
                       text: '๑. คำนำหน้าชื่อ, ชื่อสกุล เจ้าของประวัติ',
                       style: 'fz16',
                       width: 'auto',
-                      margin: [0, 0, 0, 0], // Adjust the margin to align items
+                      margin: [0, 0, 0, 0],
                     },
                     {
-                      // text: `\t\t${prefixthValue} ${this.formStaff.get('firstnameth')?.value}\t${this.formStaff.get('lastnameth')?.value}\t\t`,
-                      text: '\t\tนายอันวา เปาะแต\t\t',
+                      text: `\t\t${
+                        this.formStaff.get('prefixth')?.value.name_th
+                      } ${this.formStaff.get('firstnameth')?.value}\t${
+                        this.formStaff.get('lastnameth')?.value
+                      }\t\t`,
                       decoration: 'underline',
                       decorationStyle: 'dotted',
                       style: 'fz16',
-                      margin: [0, 0, 0, 0], // Adjust the margin to align items
+                      margin: [0, 0, 0, 0],
                     },
                     {
                       text: 'ชื่อเล่น',
                       style: 'fz16',
                       width: 'auto',
-                      margin: [20, 0, 0, 0], // Adjust the margin to align items
+                      margin: [20, 0, 0, 0],
                     },
                     {
-                      // text: `\t\t${this.formStaff.get('nickname')?.value}\t\t`,
-                      text: '\t\tวา\t\t',
+                      text: `\t\t${this.formStaff.get('nickname')?.value}\t\t`,
                       style: 'fz16',
                       decoration: 'underline',
                       decorationStyle: 'dotted',
-                      margin: [0, 0, 0, 0], // Adjust the margin to align items
+                      margin: [0, 0, 0, 0],
                     },
                   ],
                 },
+
                 {
                   margin: [0, 5, 0, 0],
                   columns: [
@@ -279,19 +339,23 @@ export class StaffComponent implements OnInit {
                       fontSize: 16,
                       width: 'auto',
                       bold: false,
-                      margin: [0, 0, 0, 0], // Adjust the margin to align items
+                      margin: [0, 0, 0, 0],
                     },
                     {
-                      // text: `\t\t${this.formStaff.get('prefixen')?.value.name_en} ${this.formStaff.get('firstname_en')?.value}\t${this.formStaff.get('lastname_en')?.value}\t\t`,
-                      text: '\t\tMr.Anwa Pohtae\t\t',
+                      text: `\t\t${
+                        this.formStaff.get('prefixen')?.value.name_en
+                      } ${this.formStaff.get('firstname_en')?.value}\t${
+                        this.formStaff.get('lastname_en')?.value
+                      }\t\t`,
                       decoration: 'underline',
                       decorationStyle: 'dotted',
                       style: 'fz16',
                       bold: false,
-                      margin: [50, 0, 0, 0], // Adjust the margin to align items
+                      margin: [40, 0, 0, 0],
                     },
                   ],
                 },
+
                 {
                   margin: [0, 5, 0, 0],
                   columns: [
@@ -300,9 +364,684 @@ export class StaffComponent implements OnInit {
                       fontSize: 16,
                       width: 'auto',
                       bold: false,
-                      margin: [0, 0, 0, 0], // Adjust the margin to align items
+                      margin: [0, 0, 0, 0],
                     },
+                    {
+                      text: `\t\t${
+                        this.formStaff.get('position')?.value.name_th
+                      }\t\t`,
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'สังกัด (สำนัก)',
+                      style: 'fz16',
+                      margin: [50, 0, 0, 0],
+                    },
+                  ],
+                },
 
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'เกิดเมื่อวันที่',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: `\t\t${
+                        this.formStaff.get('birthdayme')?.value
+                      }\t\t`,
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'ศาสนา',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: `\t\t${
+                        this.formStaff.get('religion')?.value.religion
+                      }\t\t`,
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'เลขบัตรประตัวประชาชน',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: `\t\t${
+                        this.formStaff.get('cardnumber')?.value
+                      }\t\t`,
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'หมู่โลหิต',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: `\t\t${
+                        this.formStaff.get('blood')?.value.bloodgroup
+                      }\t\t`,
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 10, 0, 0],
+                  columns: [
+                    {
+                      text: '๒. ที่พักอาศัยปัจจุบัน บ้านเลขที่',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\t148-148/4\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'หมู่ที่',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [30, 0, 0, 0],
+                    },
+                    {
+                      text: '\t-\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'หมู่บ้าน',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [30, 0, 0, 0],
+                    },
+                    {
+                      text: '\tสุขสรรค์\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'ตรอก/ซอย',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\t-\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'ถนน',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\tท่าเสด็จ\t\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'ตำบล/แขวง',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\tตะลุบัน\t\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'อำเภอ/เขต',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\tสายบุรี\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'จังหวัด',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\tปัตตานี\t\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'รหัสไปรษณีย์',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\t94110\t\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'โทรศัพท์',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\t0800351940\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'โทรศัพท์มือถือ',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: '\t0615106765\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'E-mail',
+                      style: 'fz16',
+                      width: 50,
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'anwa.p2544@gmail.com',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [10, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 10, 0, 0],
+                  columns: [
+                    {
+                      text: '๓. ที่อยู่หลักครอบครัว (ตามทะเบียนบ้าน) บ้านเลขที่',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\t148-148/4\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'หมู่ที่',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [30, 0, 0, 0],
+                    },
+                    {
+                      text: '\t-\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'หมู่บ้าน',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [30, 0, 0, 0],
+                    },
+                    {
+                      text: '\tสุขสรรค์\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'ตรอก/ซอย',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\t-\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'ถนน',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\tท่าเสด็จ\t\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'ตำบล/แขวง',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\tตะลุบัน\t\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'อำเภอ/เขต',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\tสายบุรี\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'จังหวัด',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\tปัตตานี\t\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                    {
+                      text: 'รหัสไปรษณีย์',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [50, 0, 0, 0],
+                    },
+                    {
+                      text: '\t\t94110\t\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [40, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'โทรศัพท์',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\t0800351940\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'โทรศัพท์มือถือ',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: '\t0615106765\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'E-mail',
+                      style: 'fz16',
+                      width: 50,
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'anwa.p2544@gmail.com',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [10, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 10, 0, 0],
+                  columns: [
+                    {
+                      text: '๔. สถานภาพ',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: `( ) โสด`,
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: `( ) สมรสจดทะเบียน`,
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [30, 0, 0, 0],
+                    },
+                    {
+                      text: ` ( ) สมรมไม่จำทะเบียน`,
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: `( ) หย่า`,
+                      style: 'fz16',
+                      width: 130,
+                      margin: [77, 0, 0, 0],
+                    },
+                    {
+                      text: `( ) คู่สมรสถึงแก่กรรม`,
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [5, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 10, 0, 0],
+                  columns: [
+                    {
+                      text: '๕. คู่สมรส ชื่อ',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\tชื่อสมมุติ\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'นามสกุล',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: '\tนามสกุลสมมุติ\t',
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: 'สกุลเดิมก่อนสมรส (หญิง)',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [20, 0, 0, 0],
+                    },
+                    {
+                      text: `\tนามสกุลสมมุติ\t`,
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [20, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'อายุ',
+                      fontSize: 16,
+                      width: 'auto',
+                      bold: false,
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: '\t23\t',
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [15, 0, 15, 0],
+                    },
+                    {
+                      text: 'ปี',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: 'ศาสนา',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [15, 0, 0, 0],
+                    },
+                    {
+                      text: `\tอิสลาม\t`,
+                      style: 'fz16',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      width: 'auto',
+                      margin: [15, 0, 15, 0],
+                    },
+                    {
+                      text: `อาชีพ`,
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [15, 0, 0, 0],
+                    },
+                    {
+                      text: `\tค้าขาย\t`,
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [15, 0, 15, 0],
+                    },
+                    {
+                      text: 'โทรศัพท์',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [15, 0, 0, 0],
+                    },
+                    {
+                      text: `\t0800351940\t`,
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [15, 0, 0, 0],
+                    },
+                  ],
+                },
+
+                {
+                  margin: [0, 5, 0, 0],
+                  columns: [
+                    {
+                      text: 'สถานที่ทำงาน',
+                      width: 'auto',
+                      style: 'fz16',
+                      margin: [0, 0, 0, 0],
+                    },
+                    {
+                      text: `148-148/4 ถ.ท่าเสด็จ ต.ตะลุบัน อ.สายบุรี จ.ปัตตานี 94110`,
+                      style: 'fz16',
+                      width: 'auto',
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      margin: [15, 0, 0, 0],
+                    },
+                    {
+                      text: 'จังหวัด',
+                      style: 'fz16',
+                      width: 'auto',
+                      margin: [5, 0, 0, 0],
+                    },
+                    {
+                      text: `\tปัตตานี\t`,
+                      decoration: 'underline',
+                      decorationStyle: 'dotted',
+                      style: 'fz16',
+                      margin: [15, 0, 0, 0],
+                    },
                   ],
                 },
               ],
@@ -319,38 +1058,11 @@ export class StaffComponent implements OnInit {
         },
         fz16: {
           fontSize: 16,
+          bold: false,
         },
       },
     };
 
     pdfMake.createPdf(pdfDefinition).open();
   }
-
-  // generatePDF(): void {
-  //   const docDefinition: TDocumentDefinitions = {
-  //     content: [
-  //       { text: 'This is a header', style: 'header' },
-  //       'No styling here, this is a standard paragraph',
-  //       { text: 'Another text', style: 'anotherStyle' },
-  //       { text: 'Multiple styles applied', style: ['header', 'anotherStyle'] },
-  //     ],defaultStyle:{
-  //       font: 'THSarabunNew'
-  //     },
-
-  //     styles: {
-  //       header: {
-  //         fontSize: 22,
-  //       },
-  //       anotherStyle: {
-  //         italics: true,
-  //         alignment: 'right',
-  //       },
-  //     },
-  //   };
-  //   // pdfMake.createPdf(docDefinition).open();
-  //   pdfMake.createPdf(docDefinition).getBlob((blob: Blob) => {
-  //     const url = URL.createObjectURL(blob);
-  //     window.open(url); // เปิด PDF ในหน้าต่างใหม่
-  //   });
-  // }
 }
