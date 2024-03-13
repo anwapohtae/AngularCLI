@@ -119,7 +119,12 @@
       <div class="field grid text-base">
         <div class="col-3">
           <span>เกิดเมื่อวันที่</span>
-          <p-calendar [locale]="th"></p-calendar>
+          <p-calendar
+            [style]="{ width: '100%' }"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            formControlName="birthdayme"
+          ></p-calendar>
         </div>
         <div class="col-3">
           <span>ศาสนา</span>

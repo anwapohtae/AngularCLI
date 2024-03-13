@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { provideHttpClient } from '@angular/common/http';
-import { withFetch } from '@angular/common/http';
 import { PrimengModule } from './primeng/primeng.module';
 import { MaterialModule } from './material/material.module';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +21,7 @@ import { TokenInterceptorService } from './services/token-interceptor/token-inte
 import { UserService } from './services/user/user.service';
 import { PersonalComponent } from './resource/user/personal/personal.component';
 import { StaffComponent } from './resource/staff/staff/staff.component';
+
 
 
 @NgModule({
