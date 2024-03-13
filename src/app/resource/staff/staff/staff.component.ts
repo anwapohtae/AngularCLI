@@ -51,59 +51,52 @@ export class StaffComponent implements OnInit {
   visibleLife = true;
   visibleDead = true;
 
-  thLocale: any;
-  constructor(
-    private _checkbox: CheckboxService,
-    private primengConfig: PrimeNGConfig
-  ) {
-    this.thLocale = localeTh;
-    this.primengConfig.setTranslation({
-      firstDayOfWeek: 0,
-      dayNames: [
-        'วันอาทิตย์',
-        'วันจันทร์',
-        'วันอังคาร',
-        'วันพุธ',
-        'วันพฤหัสบดี',
-        'วันศุกร์',
-        'วันเสาร์',
-      ],
-      dayNamesShort: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-      dayNamesMin: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-      monthNames: [
-        'มกราคม',
-        'กุมภาพันธ์',
-        'มีนาคม',
-        'เมษายน',
-        'พฤษภาคม',
-        'มิถุนายน',
-        'กรกฎาคม',
-        'สิงหาคม',
-        'กันยายน',
-        'ตุลาคม',
-        'พฤศจิกายน',
-        'ธันวาคม',
-      ],
-      monthNamesShort: [
-        'ม.ค.',
-        'ก.พ.',
-        'มี.ค.',
-        'เม.ย.',
-        'พ.ค.',
-        'มิ.ย.',
-        'ก.ค.',
-        'ส.ค.',
-        'ก.ย.',
-        'ต.ค.',
-        'พ.ย.',
-        'ธ.ค.',
-      ],
-      today: 'Today',
-      clear: 'Clear',
-      dateFormat: 'mm/dd/yy',
-      weekHeader: 'Wk',
-    });
-  }
+  th = {
+    firstDayOfWeek: 1,
+    dayNames: [
+      'วันอาทิตย์',
+      'วันจันทร์',
+      'วันอังคาร',
+      'วันพุธ',
+      'วันพฤหัสบดี',
+      'วันศุกร์',
+      'วันเสาร์',
+    ],
+    dayNamesShort: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
+    dayNamesMin: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
+    monthNames: [
+      'มกราคม',
+      'กุมภาพันธ์',
+      'มีนาคม',
+      'เมษายน',
+      'พฤษภาคม',
+      'มิถุนายน',
+      'กรกฎาคม',
+      'สิงหาคม',
+      'กันยายน',
+      'ตุลาคม',
+      'พฤศจิกายน',
+      'ธันวาคม',
+    ],
+    monthNamesShort: [
+      'ม.ค.',
+      'ก.พ.',
+      'มี.ค.',
+      'เม.ย.',
+      'พ.ค.',
+      'มิ.ย.',
+      'ก.ค.',
+      'ส.ค.',
+      'ก.ย.',
+      'ต.ค.',
+      'พ.ย.',
+      'ธ.ค.',
+    ],
+    today: 'วันนี้',
+    clear: 'ลบทิ้ง',
+  };
+
+  constructor(private _checkbox: CheckboxService) {}
 
   ngOnInit() {
     this.religion = [
@@ -255,26 +248,11 @@ export class StaffComponent implements OnInit {
     const religionValue = this.formStaff.get('religion')?.value.religion;
     const bloodValue = this.formStaff.get('blood')?.value.bloodgroup;
     const birthdaymeValue = this.formStaff.get('birthdayme')?.value;
-    // แปลงวันที่ให้อยู่ในรูปแบบ Date object
-    const birthdayDate = new Date(birthdaymeValue);
 
-    // แปลงวันที่ให้อยู่ในรูปแบบของ string
-    const birthdayString = birthdaymeValue.toLocaleDateString('th-TH', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-
-    // แทนที่ปีในข้อความด้วยปีไทย
-    const thaiYear = new Date(birthdaymeValue).getFullYear() + 543;
-    const thaiBirthday = birthdayString.replace(
-      new Date(birthdaymeValue).getFullYear().toString(),
-      thaiYear.toString()
-    );
-
-    // // Format the date in Thai locale
-    // const formattedBirthday = formatDate(birthdaymeValue, 'fullDate', 'th', thaiOptionsString);
+    // Next, extract day, month, and year from the birthdayme value
+    const day = birthdaymeValue.getDate(); // Method to get day of the month (1-31)
+    const month = birthdaymeValue.getMonth() + 1; // Month index starts from 0 (0-11), so adding 1
+    const year = birthdaymeValue.getFullYear(); // Four-digit year
 
     this.formStaff.value.prefixth = prefixthValue;
     this.formStaff.value.prefixen = prefixenValue;
@@ -282,10 +260,10 @@ export class StaffComponent implements OnInit {
     this.formStaff.value.religion = religionValue;
     this.formStaff.value.blood = bloodValue;
     this.formStaff.value.blood = bloodValue;
-    this.formStaff.patchValue({
-      birthdayme: thaiBirthday,
-    });
-
+    this.formStaff.get('day')?.setValue(day);
+    this.formStaff.get('month')?.setValue(month);
+    this.formStaff.get('year')?.setValue(year);
+    // Menampilkan formStaff dengan modifikasi
     console.log(this.formStaff);
   }
 
@@ -301,10 +279,8 @@ export class StaffComponent implements OnInit {
 
   public async generatePDF(): Promise<void> {
     const pdfDefinition: TDocumentDefinitions = {
-      pageSize: 'A4',
       content: [
         {
-          margin: [20, 0, 0, 0],
           columns: [
             {
               stack: [
@@ -314,7 +290,6 @@ export class StaffComponent implements OnInit {
                   bold: true,
                   fontSize: 18,
                 },
-
                 {
                   margin: [0, 10, 0, 0],
                   alignment: 'center',
@@ -323,35 +298,32 @@ export class StaffComponent implements OnInit {
                       text: '๑. คำนำหน้าชื่อ, ชื่อสกุล เจ้าของประวัติ',
                       style: 'fz16',
                       width: 'auto',
-                      margin: [0, 0, 0, 0],
+                      margin: [0, 0, 0, 0], // Adjust the margin to align items
                     },
                     {
-                      text: `\t\t${
-                        this.formStaff.get('prefixth')?.value.name_th
-                      } ${this.formStaff.get('firstnameth')?.value}\t${
-                        this.formStaff.get('lastnameth')?.value
-                      }\t\t`,
+                      // text: `\t\t${prefixthValue} ${this.formStaff.get('firstnameth')?.value}\t${this.formStaff.get('lastnameth')?.value}\t\t`,
+                      text: '\t\tนายอันวา เปาะแต\t\t',
                       decoration: 'underline',
                       decorationStyle: 'dotted',
                       style: 'fz16',
-                      margin: [0, 0, 0, 0],
+                      margin: [0, 0, 0, 0], // Adjust the margin to align items
                     },
                     {
                       text: 'ชื่อเล่น',
                       style: 'fz16',
                       width: 'auto',
-                      margin: [20, 0, 0, 0],
+                      margin: [20, 0, 0, 0], // Adjust the margin to align items
                     },
                     {
-                      text: `\t\t${this.formStaff.get('nickname')?.value}\t\t`,
+                      // text: `\t\t${this.formStaff.get('nickname')?.value}\t\t`,
+                      text: '\t\tวา\t\t',
                       style: 'fz16',
                       decoration: 'underline',
                       decorationStyle: 'dotted',
-                      margin: [0, 0, 0, 0],
+                      margin: [0, 0, 0, 0], // Adjust the margin to align items
                     },
                   ],
                 },
-
                 {
                   margin: [0, 5, 0, 0],
                   columns: [
@@ -359,22 +331,20 @@ export class StaffComponent implements OnInit {
                       text: 'คำนำหน้าชื่อ, ชื่อสกุล (ภาษาอังกฤษ)',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
-                      text: `\t\t${
-                        this.formStaff.get('prefixen')?.value.name_en
-                      } ${this.formStaff.get('firstname_en')?.value}\t${
-                        this.formStaff.get('lastname_en')?.value
-                      }\t\t`,
+                      // text: `\t\t${this.formStaff.get('prefixen')?.value.name_en} ${this.formStaff.get('firstname_en')?.value}\t${this.formStaff.get('lastname_en')?.value}\t\t`,
+                      text: '\t\tMr.Anwa Pohtae\t\t',
                       decoration: 'underline',
                       decorationStyle: 'dotted',
                       style: 'fz16',
+                      bold: false,
                       margin: [40, 0, 0, 0],
                     },
                   ],
                 },
-
                 {
                   margin: [0, 5, 0, 0],
                   columns: [
@@ -382,6 +352,7 @@ export class StaffComponent implements OnInit {
                       text: 'ตำแหน่ง',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -409,10 +380,13 @@ export class StaffComponent implements OnInit {
                       text: 'เกิดเมื่อวันที่',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
-                      text: `\t\t5555\t\t`,
+                      text: `\t\t${
+                        this.formStaff.get('birthdayme')?.value
+                      }\t\t`,
                       style: 'fz16',
                       decoration: 'underline',
                       decorationStyle: 'dotted',
@@ -444,6 +418,7 @@ export class StaffComponent implements OnInit {
                       text: 'เลขบัตรประตัวประชาชน',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -481,6 +456,7 @@ export class StaffComponent implements OnInit {
                       text: '๒. ที่พักอาศัยปัจจุบัน บ้านเลขที่',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -528,6 +504,7 @@ export class StaffComponent implements OnInit {
                       text: 'ตรอก/ซอย',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -575,6 +552,7 @@ export class StaffComponent implements OnInit {
                       text: 'อำเภอ/เขต',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -622,6 +600,7 @@ export class StaffComponent implements OnInit {
                       text: 'โทรศัพท์',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -670,6 +649,7 @@ export class StaffComponent implements OnInit {
                       text: '๓. ที่อยู่หลักครอบครัว (ตามทะเบียนบ้าน) บ้านเลขที่',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -717,6 +697,7 @@ export class StaffComponent implements OnInit {
                       text: 'ตรอก/ซอย',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -764,6 +745,7 @@ export class StaffComponent implements OnInit {
                       text: 'อำเภอ/เขต',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -811,6 +793,7 @@ export class StaffComponent implements OnInit {
                       text: 'โทรศัพท์',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -859,6 +842,7 @@ export class StaffComponent implements OnInit {
                       text: '๔. สถานภาพ',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -907,6 +891,7 @@ export class StaffComponent implements OnInit {
                       text: '๕. คู่สมรส ชื่อ',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -954,6 +939,7 @@ export class StaffComponent implements OnInit {
                       text: 'อายุ',
                       fontSize: 16,
                       width: 'auto',
+                      bold: false,
                       margin: [0, 0, 0, 0],
                     },
                     {
@@ -1067,4 +1053,32 @@ export class StaffComponent implements OnInit {
 
     pdfMake.createPdf(pdfDefinition).open();
   }
+
+  // generatePDF(): void {
+  //   const docDefinition: TDocumentDefinitions = {
+  //     content: [
+  //       { text: 'This is a header', style: 'header' },
+  //       'No styling here, this is a standard paragraph',
+  //       { text: 'Another text', style: 'anotherStyle' },
+  //       { text: 'Multiple styles applied', style: ['header', 'anotherStyle'] },
+  //     ],defaultStyle:{
+  //       font: 'THSarabunNew'
+  //     },
+
+  //     styles: {
+  //       header: {
+  //         fontSize: 22,
+  //       },
+  //       anotherStyle: {
+  //         italics: true,
+  //         alignment: 'right',
+  //       },
+  //     },
+  //   };
+  //   // pdfMake.createPdf(docDefinition).open();
+  //   pdfMake.createPdf(docDefinition).getBlob((blob: Blob) => {
+  //     const url = URL.createObjectURL(blob);
+  //     window.open(url); // เปิด PDF ในหน้าต่างใหม่
+  //   });
+  // }
 }
