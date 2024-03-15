@@ -1,13 +1,9 @@
 <app-navbar></app-navbar>
 <div class="container px-7 mt-5">
   <form [formGroup]="formStaff" (ngSubmit)="Onsubmit()">
-    <p-card
-    class=""
-    [style]="{ width: 'width' }"
-    styleClass="styleClass"
-    >
-    <div class="flex justify-content-between">
-      <span class="text-3xl">แบบข้อมูลประวัติข้าราชการและลูกจ้างประจำ</span>
+    <p-card class="" [style]="{ width: 'width' }" styleClass="styleClass">
+      <div class="flex justify-content-between">
+        <span class="text-3xl">แบบข้อมูลประวัติข้าราชการและลูกจ้างประจำ</span>
         <button
           type="button"
           pButton
@@ -30,6 +26,7 @@
             placeholder="Select a City"
             placeholder="คำนำหน้าชื่อภาษาไทย"
             formControlName="prefixth"
+            (onChange)="OnChangePrefixth($event)"
           ></p-dropdown>
         </div>
         <div class="col-3">
@@ -315,11 +312,11 @@
           <input
             pInputText
             type="text"
-            name="fhousenumber"
-            id="fhousenumber"
+            name="fnumberhouse"
+            id="fnumberhouse"
             class="w-12"
             placeholder="บ้านเลขที่"
-            formControlName="fhousenumber"
+            formControlName="fnumberhouse"
           />
         </div>
 
@@ -607,6 +604,219 @@
 
       <div class="field grid text-base">
         <div class="col-3">
+          <span>๗. ชื่อมารดา</span>
+          <input
+            pInputText
+            type="text"
+            name="mothername"
+            id="mothername"
+            class="w-12"
+            placeholder="ชื่อบิดา"
+            formControlName="mothername"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>นามสกุล</span>
+          <input
+            pInputText
+            type="text"
+            name="motherlastname"
+            id="motherlastname"
+            class="w-12"
+            placeholder="นามสกุลบิดา"
+            formControlName="motherlastname"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>เกิดเมื่อวันที่</span>
+          <p-calendar
+            [style]="{ width: '100%' }"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            formControlName="motherbirthday"
+            placeholder="วันเดือนปีเกิด"
+          ></p-calendar>
+        </div>
+
+        <div class="col-3">
+          <span>ศาสนา</span>
+          <p-dropdown
+            [style]="{ width: '100%' }"
+            [options]="religion"
+            optionLabel="religion"
+            placeholder="ศาสนา"
+            formControlName="fatherreligion"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="text-base field grid">
+        <div class="col-3">
+          <span>อายุ</span>
+          <input
+            pInputText
+            type="text"
+            name="fatherage"
+            id="fatherage"
+            class="w-12"
+            formControlName="fatherage"
+            placeholder="อายุ"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>มีชีวิตอยู่ สถานที่พักอาศัย</span>
+          <input
+            pInputText
+            type="text"
+            name="fathernumberhouse"
+            id="fathernumberhouse"
+            class="w-12"
+            placeholder="บ้านเลขที่"
+            formControlName="fathernumberhouse"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>หมู่ที่</span>
+          <input
+            pInputText
+            type="text"
+            name="fathervillage"
+            id="fathervillage"
+            class="w-12"
+            placeholder="หมู่ที่"
+            formControlName="fathervillage"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>หมู่บ้าน</span>
+          <input
+            pInputText
+            type="text"
+            name="fathervillagename"
+            id="fathervillagename"
+            class="w-12"
+            placeholder="หมู่บ้าน"
+            formControlName="fathervillagename"
+          />
+        </div>
+      </div>
+
+      <div class="field grid text-base">
+        <div class="col-3">
+          <span>ตรอก/ซอย</span>
+          <input
+            pInputText
+            type="text"
+            name="fatheralley"
+            id="fatheralley"
+            class="w-12"
+            placeholder="ตรอก/ซอย"
+            formControlName="fatheralley"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>ถนน</span>
+          <input
+            pInputText
+            type="text"
+            name="fatherroad"
+            id="fatherroad"
+            class="w-12"
+            placeholder="ถนน"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>ตำบล/แขวง</span>
+          <input
+            pInputText
+            type="text"
+            name="fathertambon"
+            id="fathertambon"
+            class="w-12"
+            placeholder="ตำบล/แขวง"
+            formControlName="fathertambon"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>อำเภอ/เขต</span>
+          <input
+            pInputText
+            type="text"
+            name="fatheramphure"
+            id="fatheramphure"
+            class="w-12"
+            placeholder="อำเภอ/เขต"
+            formControlName="fatheramphure"
+          />
+        </div>
+      </div>
+
+      <div class="text-base grid field">
+        <div class="col-3">
+          <span>จังหวัด</span>
+          <input
+            pInputText
+            type="text"
+            name="fatherprovince"
+            id="fatherprovince"
+            class="w-12"
+            placeholder="จังหวัด"
+            formControlName="fatherprovince"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>รหัสไปรษณีย์</span>
+          <input
+            pInputText
+            type="text"
+            name="fatherzipcode"
+            id="fatherzipcode"
+            class="w-12"
+            placeholder="รหัสไปรษณีย์"
+            formControlName="fatherzipcode"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>โทรศัพท์</span>
+          <input
+            pInputText
+            type="text"
+            name="fathertelephone"
+            id="fathertelephone"
+            class="w-12"
+            placeholder="โทรศัพท์"
+            formControlName="fathertelephone"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>โทรศัพท์มือถือ</span>
+          <input
+            pInputText
+            type="text"
+            name="fathertelephonemobile"
+            id="fathertelephonemobile"
+            class="w-12"
+            placeholder="โทรศัพท์มือถือ"
+            formControlName="fathertelephonemobile"
+          />
+        </div>
+      </div>
+
+      <hr class="my-5" />
+
+      <div class="field grid text-base">
+        <div class="col-3">
           <span>๖. ชื่อบิดา</span>
           <input
             pInputText
@@ -650,26 +860,174 @@
             [options]="religion"
             optionLabel="religion"
             placeholder="ศาสนา"
-            formControlName="fatherreligion"
+            formControlName="motherreligion"
           ></p-dropdown>
         </div>
       </div>
 
-      <div class="text-base field flex gap-3">
+      <div class="text-base field grid">
         <div class="col-3">
           <span>อายุ</span>
           <input
             pInputText
             type="text"
-            name="fatherage"
-            id="fatherage"
+            name="motherage"
+            id="motherage"
             class="w-12"
-            formControlName="fatherage"
+            formControlName="motherage"
             placeholder="อายุ"
           />
         </div>
 
-        <span class="mr-3 flex align-items-center">สถานะ</span>
+        <div class="col-3">
+          <span>มีชีวิตอยู่ สถานที่พักอาศัย</span>
+          <input
+            pInputText
+            type="text"
+            name="mothernumberhouse"
+            id="mothernumberhouse"
+            class="w-12"
+            placeholder="บ้านเลขที่"
+            formControlName="mothernumberhouse"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>หมู่ที่</span>
+          <input
+            pInputText
+            type="text"
+            name="mothervillage"
+            id="mothervillage"
+            class="w-12"
+            placeholder="หมู่ที่"
+            formControlName="mothervillage"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>หมู่บ้าน</span>
+          <input
+            pInputText
+            type="text"
+            name="mothervillagename"
+            id="mothervillagename"
+            class="w-12"
+            placeholder="หมู่บ้าน"
+            formControlName="mothervillagename"
+          />
+        </div>
+      </div>
+
+      <div class="field grid text-base">
+        <div class="col-3">
+          <span>ตรอก/ซอย</span>
+          <input
+            pInputText
+            type="text"
+            name="motheralley"
+            id="motheralley"
+            class="w-12"
+            placeholder="ตรอก/ซอย"
+            formControlName="motheralley"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>ถนน</span>
+          <input
+            pInputText
+            type="text"
+            name="motherroad"
+            id="motherroad"
+            class="w-12"
+            placeholder="ถนน"
+            formControlName="motherroad"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>ตำบล/แขวง</span>
+          <input
+            pInputText
+            type="text"
+            name="mothertambon"
+            id="mothertambon"
+            class="w-12"
+            placeholder="ตำบล/แขวง"
+            formControlName="mothertambon"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>อำเภอ/เขต</span>
+          <input
+            pInputText
+            type="text"
+            name="motheramphure"
+            id="motheramphure"
+            class="w-12"
+            placeholder="อำเภอ/เขต"
+            formControlName="motheramphure"
+          />
+        </div>
+      </div>
+
+      <div class="text-base grid field">
+        <div class="col-3">
+          <span>จังหวัด</span>
+          <input
+            pInputText
+            type="text"
+            name="motherprovince"
+            id="motherprovince"
+            class="w-12"
+            placeholder="จังหวัด"
+            formControlName="motherprovince"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>รหัสไปรษณีย์</span>
+          <input
+            pInputText
+            type="text"
+            name="fatherzipcode"
+            id="fatherzipcode"
+            class="w-12"
+            placeholder="รหัสไปรษณีย์"
+            formControlName="fatherzipcode"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>โทรศัพท์</span>
+          <input
+            pInputText
+            type="text"
+            name="mothertelephone"
+            id="mothertelephone"
+            class="w-12"
+            placeholder="โทรศัพท์"
+            formControlName="mothertelephone"
+          />
+        </div>
+
+        <div class="col-3">
+          <span>โทรศัพท์มือถือ</span>
+          <input
+            pInputText
+            type="text"
+            name="mothertelephonemobile"
+            id="mothertelephonemobile"
+            class="w-12"
+            placeholder="โทรศัพท์มือถือ"
+            formControlName="mothertelephonemobile"
+          />
+        </div>
+      </div>
+
+      <!-- <span class="mr-3 flex align-items-center">สถานะ</span>
         <div
           *ngFor="let statuslife of statuslife"
           class="flex align-items-center"
@@ -754,6 +1112,7 @@
               placeholder="fatherroad"
             />
           </div>
+
           <div class="col-3">
             <span>ตำบล/แขวง</span>
             <input
@@ -869,7 +1228,51 @@
               formControlName="fathercertificatenumber"
             />
           </div>
+        </div> -->
+      <!-- </div> -->
+      <!-- <canvas
+        #signPadCanvas
+
+          (touchstart)="startSignPadDrawing($event)"
+          (touchmove)="movedFinger($event)"
+          width="700"
+          height="200"
+        ></canvas>
+        <button (click)="clearSignPad()">Clear</button>
+        <button (click)="saveSignPad()">Submit the signature</button> -->
+
+      <div class="text-center" style="width: 100%; margin-left: 30rem">
+        <button
+          pButton
+          class="border-none bg-cyan-600 hover:bg-cyan-700"
+          (click)="showDialogSignaturePad()"
+          icon="pi pi-pencil"
+          label="พิมพ์ลานเซ็นของคุณที่นี่"
+        ></button>
+        <div class="fname-lname text-center">
+          <span
+            >( {{ prefixth }}{{ formStaff.get("firstnameth")?.value }}
+            {{ formStaff.get("lastnameth")?.value }} )
+          </span>
         </div>
+        <p-dialog
+          header="Header"
+          [(visible)]="visibleSignaturePad"
+          [modal]="true"
+          [style]="{ width: '50vw' }"
+          [draggable]="false"
+          [resizable]="false"
+        >
+          <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </p-dialog>
       </div>
 
       <p-footer>

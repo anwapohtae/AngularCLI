@@ -41,6 +41,7 @@
     "primeng": "^17.7.0",
     "rxjs": "~7.8.0",
     "scrollify": "^1.0.0",
+    "signature_pad": "^4.2.0",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.3"
   },
