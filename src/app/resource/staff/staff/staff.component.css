@@ -1,0 +1,25 @@
+
+:host .card-container .card {
+  width: 75px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  user-select: none;
+  padding: 0;
+}
+
+:host .card-container .card:last-child {
+  margin-right: 0;
+}
+
+
+:host .fz18 {
+  font-size: 18px;
+}
+
+:host .fz16 {
+  font-size: 16px;
+}
+

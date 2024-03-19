@@ -29,6 +29,7 @@
     "boostrap": "^2.0.0",
     "bootstrap": "^5.3.2",
     "express": "^4.18.2",
+    "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
     "jquery-scrollify": "^1.0.21",
     "jsonwebtoken": "^9.0.2",

@@ -20,6 +20,9 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { RippleModule } from 'primeng/ripple';
 
 const PrimengComponent = [
   CommonModule,
@@ -41,7 +44,10 @@ const PrimengComponent = [
   TreeSelectModule,
   CalendarModule,
   TabViewModule,
-  RadioButtonModule
+  RadioButtonModule,
+  AvatarModule,
+  AvatarGroupModule,
+  RippleModule
 ]
 
 @NgModule({
