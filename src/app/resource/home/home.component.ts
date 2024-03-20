@@ -19,6 +19,16 @@ export class HomeComponent implements OnInit {
   getId!: any;
   dataUser!: User;
   dataBook: Book[] = [];
+  responsiveOptions: any[] | undefined;
+
+  // imagecarousel
+  imageData: any[] = [
+    { src: '../../../assets/images/carousel/diane-serik-YNZW7KW0uqs-unsplash.jpg' },
+    { src: '../../../assets/images/carousel/national-cancer-institute-NFvdKIhxYlU-unsplash.jpg' },
+    { src: '../../../assets/images/carousel/scott-graham-5fNmWej4tAA-unsplash.jpg' },
+    // Add more objects for additional images
+  ];
+
   constructor(
     private router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -29,6 +39,24 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
+
     this._activatedRoute.queryParams.subscribe((params) => {
       if (params['loggedIn'] === 'success') {
         setTimeout(() => {
@@ -55,7 +83,7 @@ export class HomeComponent implements OnInit {
     const decodeToken: any = jwtDecode(getToken);
     this.getId = decodeToken.userId;
 
-    this.getUsers()
+    this.getUsers();
   }
 
   private getUsers() {

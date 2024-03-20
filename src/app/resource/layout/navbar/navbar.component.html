@@ -50,16 +50,16 @@
       #op1
       styleClass="overlay-panel1 col-6 sm:col-5 md:col-4 lg:col-3 xl:col-2"
     >
-      <div class="text-center font-bold" style="font-size: 12px">
+      <div class="text-center font-bold text-900" style="font-size: 12px">
         {{ user.email }}
       </div>
       <div class="text-center my-2">
-        <img [src]="user.profile" class="border-circle" alt="" />
+        <img [src]="user.profile" class="border-circle p-0" alt="" />
       </div>
       <div class="text-center my-2">
         <button
           pButton
-          class="p-button-outlined p-button-secondary"
+          class="p-button-outlined hover:surface-300 p-button-secondary"
           routerLink="/personal-info"
         >
           <span style="color: #0b57d0">จัดการบัญชีผู้ใช้</span>
@@ -68,7 +68,7 @@
       <div class="text-center">
         <button
           pButton
-          class="p-button-outlined p-button-secondary rounded"
+          class="p-button-outlined text-900 p-button-secondary hover:surface-300 rounded"
           (click)="Logout()"
         >
           <i class="pi pi-power-off mr-2" style="font-size: 1rem"></i>

@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
+
+.staff-component {
+  font-family: 'Sarabun', sans-serif;
+}
 
 :host .card-container .card {
   width: 75px;
@@ -14,8 +19,11 @@
   margin-right: 0;
 }
 
+.fz22 {
+  font-size: 22px;
+}
 
-:host .fz18 {
+.fz18 {
   font-size: 18px;
 }
 
@@ -23,3 +31,34 @@
   font-size: 16px;
 }
 
+:host .tab {
+  tab-size: 1; /* for e.g: value = 2*/
+}
+
+:host .tab2 {
+  tab-size: 2; /* for e.g: value = 2*/
+}
+
+:host .tab3 {
+  tab-size: 3; /* for e.g: value = 2*/
+}
+
+:host .tab4 {
+  tab-size: 4; /* for e.g: value = 2*/
+}
+
+:host .tab5 {
+  tab-size: 5; /* for e.g: value = 2*/
+}
+
+:host .tab6 {
+  tab-size: 6; /* for e.g: value = 2*/
+}
+
+:host .tab7 {
+  tab-size: 7; /* for e.g: value = 2*/
+}
+
+:host .tab8 {
+  tab-size: 8; /* for e.g: value = 2*/
+}

@@ -86,4 +86,6 @@ export interface Rachkarn {
   datelaisen: string;
   monthlaisen: string;
   yearlaisen: string;
+
+  laisen: string;
 }

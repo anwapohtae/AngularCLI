@@ -23,6 +23,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { RippleModule } from 'primeng/ripple';
+import { GalleriaModule } from 'primeng/galleria';
+import { CarouselModule } from 'primeng/carousel';
 
 const PrimengComponent = [
   CommonModule,
@@ -47,7 +49,9 @@ const PrimengComponent = [
   RadioButtonModule,
   AvatarModule,
   AvatarGroupModule,
-  RippleModule
+  RippleModule,
+  GalleriaModule,
+  CarouselModule
 ]
 
 @NgModule({

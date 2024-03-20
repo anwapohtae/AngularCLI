@@ -19,4 +19,8 @@ export class RachkarnService {
   getAllRachkarn(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}`)
   }
+
+  GetRachkarnByUserId(userId: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}${userId}`)
+  }
 }

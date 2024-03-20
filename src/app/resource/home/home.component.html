@@ -12,24 +12,32 @@
       pButton
       icon="pi pi-bars"
       tooltipPosition="bottom"
-      class="p-button-text p-button-secondary border-circle"
+      class="p-button-text p-button-secondary hover:surface-200 border-circle"
       (click)="op1.toggle($event)"
     ></button>
   </div>
 
   <p-overlayPanel #op1 styleClass="col-6 sm:col-5 md:col-4 lg:col-3 xl:col-2">
     <div class="flex gap-3">
-      <button pButton class="flex-column text-center border-round-3xl py-2 p-button-secondary p-button-text" routerLink="/personal-info">
-          <img
-            src="{{ dataUser.profile }}"
-            class="border-circle"
-            alt=""
-            width="40"
-            height="40"
-          />
+      <button
+        pButton
+        class="flex-column text-center text-900 border-round-3xl py-2 p-button-secondary hover:surface-100 p-button-text"
+        routerLink="/personal-info"
+      >
+        <img
+          src="{{ dataUser.profile }}"
+          class="border-circle"
+          alt=""
+          width="40"
+          height="40"
+        />
         <div>บัญชี1</div>
       </button>
-      <button pButton class="flex-column text-center border-round-3xl py-2 p-button-secondary p-button-text" routerLink="/staff">
+      <button
+        pButton
+        class="flex-column text-center text-900 border-round-3xl py-2 p-button-secondary hover:surface-100 p-button-text"
+        routerLink="/staff"
+      >
         <img
           src="../../../assets/images/3135715.png"
           class="border-circle"
@@ -37,16 +45,34 @@
           width="40"
           height="40"
         />
-      <div>ก.พ.7</div>
-    </button>
+        <div>ก.พ.7</div>
+      </button>
     </div>
   </p-overlayPanel>
+  <p-carousel
+    [value]="imageData"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
+    [autoplayInterval]="5000"
+  >
+    <ng-template let-imageData pTemplate="carousel">
+      <div class="m-2 text-center">
+        <div class="mb-3">
+          <img [src]="imageData.src" [alt]="imageData.src" class="w-8 shadow-2"/>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
 </div>
-<div *ngFor="let book of dataBook">
+
+
+<!-- <div *ngFor="let book of dataBook">
   <div>{{ book.name }}</div>
   <div>{{ book.author }}</div>
   <div>{{ book.publication }}</div>
-</div>
+</div> -->
 <!--
 <p-table [value]="products" dataKey="ID" [tableStyle]="{'min-width': '50rem', 'font-size': '14px'}">
   <ng-template pTemplate="header">
