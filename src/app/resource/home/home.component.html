@@ -25,7 +25,7 @@
         routerLink="/personal-info"
       >
         <img
-          src="{{ dataUser.profile }}"
+          [src]="dataUser?.profile"
           class="border-circle"
           alt=""
           width="40"

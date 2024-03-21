@@ -1,13 +1,20 @@
 <app-navbar></app-navbar>
-<div class="staff-component flex flex-column flex-wrap align-content-center">
+<div class="staff-component w-max md:w-full flex flex-column flex-wrap align-content-center">
   <div class="my-2 flex justify-content-between">
     <div class="">
       <button
         pButton
         pRipple
-        class="p-button-primary"
+        class="p-button-primary mr-2"
         label="สร้างเอกสาร"
         [disabled]="disabledButtondialogDocument"
+        (click)="dialogDocument = true"
+      ></button>
+      <button
+        pButton
+        pRipple
+        class="p-button-primary"
+        label="ส่งคำร้องขอแก้เอกสาร"
         (click)="dialogDocument = true"
       ></button>
     </div>
@@ -468,7 +475,7 @@
 
     <p-dialog
       [draggable]="false"
-      style="height: 100%"
+      [style]="{ 'width': '100vw', 'height': '100vh' }"
       [(visible)]="dialogDocument"
       [maximizable]="true"
     >

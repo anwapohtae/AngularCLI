@@ -1,29 +1,112 @@
-
-  <div class="mx-auto my-auto">
-      <button pButton class="p-button-text my-2 p-3" routerLink="/login">
-        <div>
-          <i class="pi pi-arrow-left"></i>
-          กลับไปยังหน้าหลัก
+<p-toast
+  [showTransformOptions]="'translateY(10%)'"
+  [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'1000ms'"
+  [showTransformOptions]="'translateX(10%)'"
+></p-toast>
+<div class="sm:mx-7 flex justify-content-between -mb-8">
+  <img
+    src="../../assets/images/logo.png"
+    class="border-circle my-auto"
+    alt="Sample image"
+    style="width: 50%"
+  />
+  <div class="mx-auto my-auto w-8">
+    <form [formGroup]="formRegister" (ngSubmit)="onRegister()">
+      <p-card>
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center">
+            <button
+              pButton
+              icon="pi pi-arrow-left"
+              class="flex align-items-left border-round"
+              style="margin: 5px 5px"
+              routerLink="/login"
+            >
+              <span class="ml-2">ย้อนกลับ</span>
+            </button>
+            <span class="font-bold" style="font-size: 18px"
+              >แบบฟอร์มลงทะเบียน</span
+            >
+          </div>
+        </ng-template>
+        <div class="grid field">
+          <div class="col-6">
+            <input
+              pInputText
+              id="firstname"
+              name="firstname"
+              class="w-full"
+              placeholder="ชื่อ*"
+              formControlName="firstname"
+              required
+            />
+            <small class="p-error" *ngIf="submitted && formRegister.get('firstname')?.value == null">กรุณากรอกชื่อในช่องนี้ด้วย</small>
+          </div>
+          <div class="col-6">
+            <input
+              pInputText
+              id="lastname"
+              name="lastname"
+              class="w-full"
+              placeholder="นามสกุล*"
+              formControlName="lastname"
+              required
+            />
+            <small class="p-error" *ngIf="submitted && formRegister.get('lastname')?.value == null">กรุณกรอกนามสกุลในช่องนี้ด้วย</small>
+          </div>
         </div>
-      </button>
-    <p-card header="Advanced Card" subheader="Card Subheader">
-      <!-- <ng-template pTemplate="header">
-      <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
-    </ng-template> -->
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed
-        consequuntur error repudiandae numquam deserunt quisquam repellat libero
-        asperiores earum nam nobis, culpa ratione quam perferendis esse,
-        cupiditate neque quas!
-      </p>
-      <ng-template pTemplate="footer">
-        <p-button label="Save" icon="pi pi-check"></p-button>
-        <p-button
-          label="Cancel"
-          icon="pi pi-times"
-          styleClass="p-button-secondary"
-          [style]="{ 'margin-left': '.5em' }"
-        ></p-button>
-      </ng-template>
-    </p-card>
+        <div class="grid field">
+          <div class="col-6">
+            <input
+              pInputText
+              type="date"
+              id="age"
+              name="age"
+              class="w-full"
+              formControlName="age"
+              required
+            />
+            <small class="p-error" *ngIf="submitted && formRegister.get('age')?.value == null">กรุณเลือกวันเดือนปีเกิดในช่องนี้ด้วย</small>
+          </div>
+          <div class="col-6">
+            <input
+              pInputText
+              id="numberphone"
+              name="numberphone"
+              class="w-full"
+              placeholder="เบอร์โทรศัพท์มือถือ*"
+              formControlName="numberphone"
+              required
+            />
+            <small class="p-error" *ngIf="submitted && formRegister.get('numberphone')?.value == null">กรุณกรอกเบอร์โทรศัพท์มือถือในช่องนี้ด้วย</small>
+          </div>
+        </div>
+        <div class="grid field">
+          <div class="col-12">
+            <input
+              pInputText
+              type="email"
+              id="email"
+              name="email"
+              class="w-full"
+              placeholder="ที่อยู่อีเมลล์*"
+              formControlName="email"
+              required
+            />
+            <small class="p-error" *ngIf="submitted && formRegister.get('email')?.value == null">กรุณกรอกที่อยู่อีเมลล์ในช่องนี้ด้วย</small>
+          </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+          <button
+            pButton
+            type="submit"
+            class="p-button-success"
+            label="ลงทะเบียน"
+          ></button>
+        </ng-template>
+      </p-card>
+    </form>
   </div>
+</div>

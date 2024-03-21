@@ -1,3 +1,4 @@
+import { response } from 'express';
 import { Book } from './../../modules/book';
 import { User } from '../../modules/user';
 import { MessageService } from 'primeng/api';
@@ -17,7 +18,7 @@ import { decode } from 'punycode';
 })
 export class HomeComponent implements OnInit {
   getId!: any;
-  dataUser!: User;
+  dataUser: User | undefined;
   dataBook: Book[] = [];
   responsiveOptions: any[] | undefined;
 
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit {
       },
       {
         breakpoint: '991px',
-        numVisible: 2,
+        numVisible: 1,
         numScroll: 1,
       },
       {
@@ -88,8 +89,10 @@ export class HomeComponent implements OnInit {
 
   private getUsers() {
     this.userService.getUserById(this.getId).subscribe({
-      next: (res) => {
-        this.dataUser = res as User;
+      next: (response: User) => {
+        if(response != null) {
+          this.dataUser = response
+        }
       },
     });
   }

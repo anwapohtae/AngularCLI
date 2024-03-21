@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Message Content',
+            detail: 'ลงทะเบียนสำเร็จ',
           });
           this.router.navigate(['']);
         }, 100); // 5000 milliseconds = 5 seconds

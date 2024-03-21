@@ -1,10 +1,10 @@
 <div class="p-2 px-7 bg-blue-200 border-round-lg flex justify-content-between">
-  <div class="logoWeb my-auto text-3xl" routerLink="/home">
+  <div class="logoWeb my-auto text-sm sm:text-base md:text-3xl" routerLink="/home">
     โรงพยาบาลธัญญารักษ์ปัตตานี
-    <span class="text-base">เฉพาะบุคลากร</span>
+    <span class="text-xs sm:text-xs md:text-sm">เฉพาะบุคลากร</span>
   </div>
   <div class="flex">
-    <span class="my-auto mr-2 uppercase font-medium">
+    <span class="my-auto mr-2 uppercase font-medium text-xs sm:text-xs md:text-sm">
       {{ user.firstname }} {{ user.lastname }}
     </span>
 
@@ -12,15 +12,13 @@
       pButton
       [pTooltip]="profile"
       tooltipPosition="bottom"
-      class="p-button-text p-button-success p-0 border-circle"
+      class="border-circle p-0"
       (click)="op1.toggle($event)"
     >
       <img
-        class="border-circle"
+        class="border-circle w-3rem "
         src="{{ user.profile }}"
         alt=""
-        width="50"
-        height="50"
       />
     </button>
 

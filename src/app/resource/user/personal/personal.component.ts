@@ -31,21 +31,8 @@ export class PersonalComponent implements OnInit {
   user!: User[];
   submitted: boolean = false;
 
-  dataUser = {
-    firstname: null,
-    lastname: null,
-    googlefirstsname: null,
-    googlelastname: null,
-    age: null,
-    numberphone: null,
-    googleid: null,
-    email: null,
-    profile: null,
-    province: null,
-    amphure: null,
-    tambon: null,
-    zipcode: null,
-  };
+  getUser: User | undefined;
+
   dataProvinces!: any;
   dataAmphure!: any[];
   dataTambon!: any;
@@ -81,7 +68,6 @@ export class PersonalComponent implements OnInit {
     const decodeToken: any = jwtDecode(getToken);
     this.getId = decodeToken.userId;
 
-
     this.getUsers();
     // GetProvinces
     this._thaidataService.getProvinces().subscribe((res) => {
@@ -96,7 +82,7 @@ export class PersonalComponent implements OnInit {
   private getUsers() {
     this._userService.getUserById(this.getId).subscribe({
       next: (res) => {
-        this.dataUser = res;
+        this.getUser = res;
       },
     });
   }
@@ -156,7 +142,7 @@ export class PersonalComponent implements OnInit {
   }
 
   save() {
-    this.submitted = true
+    this.submitted = true;
     // addressData
     const userData = {
       province: this.selectedProvince.province_nameth,
